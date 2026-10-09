@@ -346,10 +346,17 @@ td.tap-date .tapme,td.tap-ymd .tapme{border-radius:7px}
 .chip.blankchip::before{display:none}
 .btn.lg{height:48px;padding:0 24px;font-size:16px}
 .fld input.date{max-width:none;width:100%;height:50px;font-size:18px;text-transform:none}
+.ctx{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px 16px;margin:0;padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);font-size:14px;align-items:center}
+.ctx dt{color:var(--ink-muted);font-weight:600;font-size:12.5px}
+.ctx dd{margin:0;color:var(--ink);overflow-wrap:anywhere}
+.ctx dd .chip{height:28px;font-size:13px}
+.fld textarea.remark{width:100%;min-height:130px;border:1px solid var(--border);border-radius:8px;background:var(--surface);padding:10px 12px;font-family:inherit;font-size:16px;font-weight:500;line-height:1.45;color:var(--ink);resize:vertical}
+.fld textarea.remark:focus{outline:2px solid var(--brand);outline-offset:1px}
+table.dtab.insp td.tap-remarks{white-space:pre-line}
 .sync.off{color:var(--fair)} .sync.off::before{background:var(--st-fair)}
 .offl{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--good);padding:0 4px;white-space:nowrap}
 .offl svg{width:13px;height:13px}
-@media (max-width:640px){ .picks{grid-template-columns:1fr} .btn-done{width:100%} }
+@media (max-width:640px){ .picks{grid-template-columns:1fr} .btn-done{width:100%} .ctx{grid-template-columns:1fr;gap:2px} .ctx dd{margin-bottom:6px} }
 
 @media (max-width:1180px){ .kpis{grid-template-columns:repeat(3,1fr)} }
 @media (max-width:860px){ .grid2{grid-template-columns:1fr} }
@@ -3647,8 +3654,8 @@ function paintTable(tm, id){
       const cls = [isNum && !k.date ? 'num' : k.long ? 'long' : ''];
       if (X.editKeys.has(si + ':' + (r * K + c))) cls.push('ed');
       if (v instanceof FX.XErr) cls.push('err');
-      const s = !isNum ? statusOf(t) : null;
-      const kind = tm.insp && !extra ? tm.insp.kind.get(c) : null;      // condition / date cells open a picker when tapped
+      const kind = tm.insp && !extra ? tm.insp.kind.get(c) : null;      // condition / status / date / remark cells open a picker when tapped
+      const s = !isNum && kind !== 'remarks' ? statusOf(t) : null;      // a remark is text, never a coloured chip
       let inner = s ? chip(t.trim(), s) : esc(t);
       if (kind){ cls.push('tap', 'tap-' + kind); if (!t.trim() && APP.canWrite) inner = `<span class="tapme">${TAP_HINT[kind] || 'Set'}</span>`; }
       const c2 = cls.filter(Boolean).join(' ');
@@ -4120,6 +4127,7 @@ function inspModel(sh, blocks){
     if (cols.ymd) kind.set(cols.ymd, 'ymd');
     if (cols.po) kind.set(cols.po, 'po');
     if (cols.pm) kind.set(cols.pm, 'pm');
+    if (cols.remarks) kind.set(cols.remarks, 'remarks');
     return {t, cols, kind};
   }
   return null;
@@ -4180,7 +4188,7 @@ function openConditionPicker(X, sh, insp, r){
     dlg.el.querySelector('[data-back]').addEventListener('click', () => openConditionPicker(X, sh, insp, r));
   }));
 }
-const TAP_HINT = {status: 'Rate', date: 'Set date', ymd: 'Set date', po: 'Set', pm: 'Set'};
+const TAP_HINT = {status: 'Rate', date: 'Set date', ymd: 'Set date', po: 'Set', pm: 'Set', remarks: 'Add remark'};
 const PICKER_ONLY = new Set(['status', 'po', 'pm']);
 function inSqref(sqref, r, c){
   return String(sqref || '').trim().split(/\s+/).some(p => {
@@ -4240,6 +4248,37 @@ function openStatusPicker(X, sh, insp, r, c, kind){
   const back = dlg.el.querySelector('[data-formula]');
   if (back) back.addEventListener('click', () => ask('<span class="chip blankchip">Formula</span>', 'The cell shows what the workbook’s formula works out.', restore));
 }
+/** Remarks: a comment box that shows which item it is for (category, equipment, PO condition). Save is the
+    confirmation (typing a remark is never a stray tap). Line breaks are kept. */
+function openRemarkDialog(X, sh, insp, r, c){
+  if (!APP.canWrite){ toast('Tap Edit and enter the PIN to write remarks.', 4000); return; }
+  const head = (k, dflt) => insp.cols[k] ? normH(V(sh, insp.t.h, insp.cols[k])) || dflt : dflt;
+  const val = k => insp.cols[k] ? normH(fmtValue(V(sh, r, insp.cols[k]), styleOf(sh, r, insp.cols[k]))) : '';
+  const label = normH(V(sh, insp.t.h, c)) || 'Remarks', name = val('name') || `Row ${r}`, sn = val('sn');
+  const raw = V(sh, r, c), cur = raw == null ? '' : typeof raw === 'string' ? raw : fmtValue(raw, styleOf(sh, r, c));
+  const cond = insp.cols.status ? normH(V(sh, r, insp.cols.status)) : null;
+  const dlg = dialog(`<h3>${esc(label)}</h3>
+    <dl class="ctx">
+      <dt>${esc(head('cat', 'AMP Category'))}</dt><dd>${esc(val('cat')) || '<span class="muted">–</span>'}</dd>
+      <dt>${esc(head('name', 'Equipment Name'))}</dt><dd><b>${esc(name)}</b>${sn ? ` <span class="muted">· Yard SN ${esc(sn)}</span>` : ''}</dd>
+      ${cond != null ? `<dt>${esc(head('status', 'PO EQ condition Status'))}</dt><dd>${condChip(cond)}</dd>` : ''}
+    </dl>
+    <label class="fld">Comment<textarea id="rmIn" class="remark" rows="5" maxlength="2000" placeholder="Write the remark for this item">${esc(cur)}</textarea></label>
+    <p class="note">Saved for everyone, and written into the exported workbook.</p>
+    <div class="dlg-actions">${cur.trim() ? '<button class="btn ghost" type="button" data-clear>Clear</button>' : ''}<span class="sp"></span><button class="btn ghost" type="button" data-close>Cancel</button><button class="btn primary lg" type="button" data-save>Save</button></div>`);
+  const inp = $('#rmIn');
+  setTimeout(() => { try { inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); } catch (e){} }, 60);
+  const put = text => {
+    const t = String(text).replace(/\r\n?/g, '\n').replace(/^\s+|\s+$/g, '');
+    dlg.close();
+    if (t === cur.replace(/\r\n?/g, '\n').trim()){ toast('No change', 2000); return; }
+    setCell(X, sh.idx, r, c, t || null);
+    toast(`${name}: ${t ? 'remark saved' : 'remark cleared'}`, 2500);
+  };
+  dlg.el.querySelector('[data-save]').addEventListener('click', () => put(inp.value));
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)){ e.preventDefault(); put(inp.value); } });
+  const clr = dlg.el.querySelector('[data-clear]'); if (clr) clr.addEventListener('click', () => put(''));
+}
 function openDateDialog(X, sh, insp, r, c){
   if (!APP.canWrite){ toast('Tap Edit and enter the PIN to change dates.', 4000); return; }
   const label = normH(V(sh, insp.t.h, c)) || 'Date', cur = V(sh, r, c), has = typeof cur === 'number' && cur > 0, info = itemInfo(sh, insp, r);
@@ -4259,6 +4298,7 @@ function openInspCell(si, r, c, kind){
   const insp = inspModel(sh, buildBlocks(sh).blocks); if (!insp) return;
   if (kind === 'status') openConditionPicker(X, sh, insp, r);
   else if (kind === 'po' || kind === 'pm') openStatusPicker(X, sh, insp, r, c, kind);
+  else if (kind === 'remarks') openRemarkDialog(X, sh, insp, r, c);
   else openDateDialog(X, sh, insp, r, c);
 }
 function inspBar(X){

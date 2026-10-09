@@ -2,7 +2,7 @@
    When online the page is always fetched fresh (and the copy refreshed); offline, or if the network does not
    answer within 4 seconds, the saved copy is used. Rig data is kept by the page itself (IndexedDB).
    Upload this file next to index.html. */
-const BUILD = '5f06ca53fe76';
+const BUILD = 'fba31ecea9ce';
 const PAGE_CACHE = 'amp-page-' + BUILD;
 const FONT_CACHE = 'amp-fonts-v2';
 const SCOPE = self.registration.scope;
