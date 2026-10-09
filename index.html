@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1E2761">
 <title>Rig AMP Reports</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
@@ -299,6 +302,54 @@ a.rigcard:hover{border-color:var(--brand);box-shadow:var(--shadow)}
 .progress{height:8px;border-radius:4px;background:var(--surface-3);overflow:hidden}
 .progress i{display:block;height:100%;background:var(--copper);transition:width .2s}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 14px;border-radius:8px;font-size:13px;font-weight:500;box-shadow:var(--shadow);z-index:90;max-width:calc(100% - 32px)}
+
+/* inspection on a tablet (Equipment Breakdown) */
+.insp{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+.insp-row{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:center}
+.insp-row .sp{flex:1}
+.btn-done{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:66px;padding:0 30px;border:0;border-radius:12px;background:var(--good-solid);color:#fff;font-family:var(--font-display);font-size:27px;font-weight:700;letter-spacing:.01em;line-height:1.05;cursor:pointer;box-shadow:0 2px 0 rgba(0,0,0,.18),0 10px 24px -12px rgba(31,122,77,.9);touch-action:manipulation}
+.btn-done:hover{filter:brightness(1.08)}
+.btn-done:active{transform:translateY(1px)}
+.btn-done svg{width:30px;height:30px;flex:none}
+.insp-info{font-size:13px;line-height:1.45}
+.guard{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:0 14px 0 10px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--ink);font-size:14px;font-weight:600;cursor:pointer;touch-action:manipulation}
+.guard .trk{width:44px;height:26px;border-radius:13px;background:var(--surface-3);position:relative;flex:none;transition:background .15s}
+.guard .trk i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.35);transition:left .15s}
+.guard.on .trk{background:var(--good-solid)}
+.guard.on .trk i{left:21px}
+.guard-off{margin-top:12px;background:var(--fair-bg);border:1px solid var(--fair-line);border-radius:8px;padding:10px 12px;font-size:13.5px;color:var(--ink-2)}
+.guard-off .linkbtn{font-family:var(--font-body);font-size:13.5px}
+table.dtab.insp td{padding:9px 8px;vertical-align:middle}
+table.dtab.insp td.tap{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pick,.btn-done,.guard{-webkit-tap-highlight-color:transparent}
+table.dtab.insp td.tap:hover{background:var(--brand-soft)}
+table.dtab.insp td.tap-status .chip{height:32px;font-size:13px;padding:0 13px 0 11px}
+.tapme{display:inline-flex;align-items:center;height:32px;padding:0 13px;border:1.5px dashed var(--ink-faint);border-radius:999px;color:var(--ink-muted);font-size:12.5px;font-weight:600;white-space:nowrap}
+td.tap-date .tapme,td.tap-ymd .tapme{border-radius:7px}
+.item{display:flex;flex-direction:column;gap:2px;margin:0}
+.item .muted{font-size:12.5px}
+.picks{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pick{display:flex;align-items:center;gap:12px;min-height:66px;padding:0 16px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--ink);font-size:18px;font-weight:700;cursor:pointer;text-align:left;touch-action:manipulation}
+.pick i{width:18px;height:18px;border-radius:50%;flex:none;background:var(--st-pending)}
+.pick small{margin-left:auto;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;opacity:.8}
+.pick.good{border-color:var(--good-line);background:var(--good-bg);color:var(--good)} .pick.good i{background:var(--st-good)}
+.pick.fair{border-color:var(--fair-line);background:var(--fair-bg);color:var(--fair)} .pick.fair i{background:var(--st-fair)}
+.pick.bad{border-color:var(--bad-line);background:var(--bad-bg);color:var(--bad)} .pick.bad i{background:var(--st-bad)}
+.pick.pending{border-color:var(--pending-line);background:var(--pending-bg);color:var(--ink-2)}
+.pick.blank{border-style:dashed;color:var(--ink-muted)} .pick.blank i{background:transparent;border:2px solid var(--ink-faint)}
+.pick.cur{box-shadow:0 0 0 3px var(--copper)}
+.pick:active{transform:translateY(1px)}
+.chg{display:flex;align-items:center;flex-wrap:wrap;gap:12px}
+.chg .chip{height:32px;font-size:14px;padding:0 13px 0 11px}
+.chg .arrow{font-size:22px;color:var(--ink-muted)}
+.chip.blankchip{color:var(--ink-muted);background:transparent;border-style:dashed;border-color:var(--ink-faint)}
+.chip.blankchip::before{display:none}
+.btn.lg{height:48px;padding:0 24px;font-size:16px}
+.fld input.date{max-width:none;width:100%;height:50px;font-size:18px;text-transform:none}
+.sync.off{color:var(--fair)} .sync.off::before{background:var(--st-fair)}
+.offl{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--good);padding:0 4px;white-space:nowrap}
+.offl svg{width:13px;height:13px}
+@media (max-width:640px){ .picks{grid-template-columns:1fr} .btn-done{width:100%} }
 
 @media (max-width:1180px){ .kpis{grid-template-columns:repeat(3,1fr)} }
 @media (max-width:860px){ .grid2{grid-template-columns:1fr} }
@@ -1872,12 +1923,68 @@ function translate(text, r0, c0, r1, c1){
   }
   return out;
 }
+/** Rewrite the references to sheet `target` after its columns moved. mv.cell(c) gives a single column's new
+    number, mv.range(c1, c2) a range's new ends (c1 < c2). `own` is the sheet the text belongs to (references
+    without a sheet name point there); null for workbook-level text such as chart series and defined names.
+    References to other sheets or workbooks, 3-D references, table references and text in quotes are left alone. */
+function remapCols(text, own, target, mv){
+  const T = String(target).toLowerCase(), isT = s => s != null && String(s).toLowerCase() === T;
+  let out = '', i = 0, pend;                 // pend: the sheet named just before a reference; null = not ours to change
+  const n = text.length;
+  const sheetOf = () => pend === undefined ? own : pend;
+  const ends = (a, b) => { const lo = Math.min(a, b), hi = Math.max(a, b); const [x, y] = lo === hi ? [mv.cell(lo), mv.cell(lo)] : mv.range(lo, hi); return a <= b ? [x, y] : [y, x]; };
+  while (i < n){
+    const ch = text[i], prev = i ? text[i - 1] : '';
+    if (ch === '"'){ let j = i + 1; while (j < n){ if (text[j] === '"'){ if (text[j + 1] === '"'){ j += 2; continue; } break; } j++; } out += text.slice(i, j + 1); i = j + 1; pend = undefined; continue; }
+    if (ch === "'"){
+      let j = i + 1, name = '';
+      while (j < n){ if (text[j] === "'"){ if (text[j + 1] === "'"){ name += "'"; j += 2; continue; } break; } name += text[j++]; }
+      out += text.slice(i, j + 1); i = j + 1;
+      if (text[i] === '!'){ out += '!'; i++; pend = /^\[[^\]]*\]/.test(name) || name.includes(':') ? null : name; } else pend = undefined;
+      continue;
+    }
+    if (ch === '['){
+      let d = 0, j = i; for (; j < n; j++){ if (text[j] === "'"){ j++; continue; } if (text[j] === '[') d++; else if (text[j] === ']'){ d--; if (!d) break; } }
+      const raw = text.slice(i, j + 1); out += raw; i = j + 1; pend = undefined;
+      if (/^\[\d+\]$/.test(raw)){ const m = /^[A-Za-z_\u00C0-\uFFFF][A-Za-z0-9_.\u00C0-\uFFFF]*!/.exec(text.slice(i)); if (m){ out += m[0]; i += m[0].length; pend = null; } }   // [1]Sheet!: another workbook
+      continue;
+    }
+    const word = /[A-Za-z0-9_.\\\u00C0-\uFFFF]/.test(prev);
+    if (!word && /[A-Za-z$_\\\u00C0-\uFFFF]/.test(ch)){
+      const rest = text.slice(i);
+      let m = /^(\$?)([A-Za-z]{1,3})(\$?)(\d+)(?::(\$?)([A-Za-z]{1,3})(\$?)(\d+))?(?![A-Za-z0-9_.(!\[\\])/.exec(rest);
+      if (m && colNum(m[2]) <= K && (m[6] == null || colNum(m[6]) <= K)){
+        if (isT(sheetOf())){
+          if (m[6] == null) out += m[1] + colLetter(mv.cell(colNum(m[2]))) + m[3] + m[4];
+          else { const [a, b] = ends(colNum(m[2]), colNum(m[6])); out += m[1] + colLetter(a) + m[3] + m[4] + ':' + m[5] + colLetter(b) + m[7] + m[8]; }
+        } else out += m[0];
+        i += m[0].length; pend = undefined; continue;
+      }
+      m = /^(\$?)([A-Za-z]{1,3}):(\$?)([A-Za-z]{1,3})(?![A-Za-z0-9_.(!\[\\])/.exec(rest);
+      if (m && colNum(m[2]) <= K && colNum(m[4]) <= K){
+        if (isT(sheetOf())){ const [a, b] = ends(colNum(m[2]), colNum(m[4])); out += m[1] + colLetter(a) + ':' + m[3] + colLetter(b); }
+        else out += m[0];
+        i += m[0].length; pend = undefined; continue;
+      }
+      m = /^[A-Za-z_$\\\u00C0-\uFFFF][A-Za-z0-9_.\\?\u00C0-\uFFFF]*/.exec(rest);
+      if (m){ out += m[0]; i += m[0].length; if (text[i] === '!'){ out += '!'; i++; pend = m[0]; } else pend = undefined; continue; }
+    }
+    if (!word && /[\d$]/.test(ch) && !/[\d.]/.test(prev)){
+      const m = /^(\$?\d+):(\$?\d+)(?![\d.A-Za-z(])/.exec(text.slice(i));
+      if (m){ out += m[0]; i += m[0].length; pend = undefined; continue; }
+      const num = /^\d+\.?\d*([eE][+-]?\d+)?/.exec(text.slice(i));
+      if (num){ out += num[0]; i += num[0].length; pend = undefined; continue; }
+    }
+    out += ch; i++; pend = undefined;
+  }
+  return out;
+}
 /** Formula text as a person reads it (without the _xlfn./_xlws./_xlpm. storage prefixes). */
 const pretty = text => String(text).replace(/_xlfn\._xlws\.|_xlfn\.|_xlws\.|_xlpm\./g, '');
 /** Every function name a formula calls, for coverage checks. */
 function functionsIn(text){ try { return tokenize(text).filter(t => t.type === 'func').map(t => normName(t.v)); } catch (e){ return []; } }
 const supported = name => name in FN || name in SPECIAL;
-return {K, XErr, E, Arr, Ref, isErr, errOf, tokenize, parse, relKey, Calc, validate, same, fmtNum, fmtDate, general, numStr, isDateFmt, colLetter, colNum, toStr, dateToSerial, serialToDate, FN, SPECIAL, evaluate, functionsIn, supported, MON, translate, pretty, parseDateText, toNum};
+return {K, XErr, E, Arr, Ref, isErr, errOf, tokenize, parse, relKey, Calc, validate, same, fmtNum, fmtDate, general, numStr, isDateFmt, colLetter, colNum, toStr, dateToSerial, serialToDate, FN, SPECIAL, evaluate, functionsIn, supported, MON, translate, remapCols, pretty, parseDateText, toNum};
 })();
 
 </script>
@@ -2090,6 +2197,11 @@ async function read(buf, fileName, onStep){
     for (const [rn, cells] of rowsOut) for (const cl of cells) if ((cl[1] !== null && cl[1] !== '') || cl[3] != null){ if (rn > valueR) valueR = rn; if (cl[0] > valueC) valueC = cl[0]; }
     const rows = rowsOut.filter(r => r[0] <= valueR).map(([rn, cells]) => [rn, cells.filter(cl => cl[0] <= valueC || cl[3] != null)]).filter(r => r[1].length);
     const merges = all(first(root, 'mergeCells'), 'mergeCell').map(m => attr(m, 'ref'));
+    // drop-down lists typed into the rule ("Completed,Not Completed"): the inspection pickers offer the same words
+    const dv = all(first(root, 'dataValidations'), 'dataValidation').filter(d => attr(d, 'type') === 'list').map(d => {
+      const f1 = first(d, 'formula1'), raw = f1 ? f1.textContent.trim() : '';
+      return /^".*"$/.test(raw) ? {sqref: attr(d, 'sqref') || '', items: raw.slice(1, -1).split(',').map(x => x.trim()).filter(Boolean)} : null;
+    }).filter(Boolean);
     let freeze = null; const pane = first(root, 'pane');
     if (pane && ['frozen', 'frozenSplit'].includes(attr(pane, 'state'))) freeze = {x: +(attr(pane, 'xSplit') || 0), y: +(attr(pane, 'ySplit') || 0)};
     const tabColor = colorOf(first(first(root, 'sheetPr'), 'tabColor'));
@@ -2147,7 +2259,7 @@ async function read(buf, fileName, onStep){
       }
     }
     const colArr = []; for (let i = 1; i <= Math.max(valueC, 1); i++) colArr.push(colW[i] != null ? colW[i] : defW);
-    sheets.push({name, state: attr(sEl, 'state') || 'visible', maxRow: valueR, maxCol: valueC, colW: colArr, rowH, hiddenRows, hiddenCols, merges, freeze, tabColor, charts, ftab, rows});
+    sheets.push({name, state: attr(sEl, 'state') || 'visible', maxRow: valueR, maxCol: valueC, colW: colArr, rowH, hiddenRows, hiddenCols, merges, dv, freeze, tabColor, charts, ftab, rows});
   }
   return {file: fileName || '', savedAt: modified || null, styles, tables, names, sheets};
 }
@@ -2293,6 +2405,563 @@ return {build};
 
 </script>
 <script>
+/* ---- xlsx-patch.js ---- */
+/* xlsx-patch.js - write the page's changes back into the ORIGINAL workbook file, so the exported .xlsx keeps
+   every formula, drop-down list, table, chart and format exactly as Excel had them. Needs ZIP and FX.
+     build(bytes, job) -> {blob, warnings}
+     job.writes   [{si, r, c, hasValue, v, f, s}]   cells to write (sheet index as in the workbook):
+                    hasValue: write v (number / text / true-false / null = empty); f: a formula (no '='); s: style index
+     job.value    (si, r, c) -> the page's current value of a cell (formula results are stored with it)
+     job.cached   (si, r, c) -> the value the file held when it was imported (unchanged results are left alone)
+     job.tables   [{name, ref, col}]                tables to widen by one column named col
+     job.newXfs   [{nf}]                            cell formats to append (keeps the page's style numbers)
+     job.dateCols [{si, c, r1, r2, nf}]             columns whose cells must show dates (format added where missing)
+   Drop-down lists that offer Good / Fair / Unacceptable also get "No condition rating", and any text written
+   into a list's range that the list does not offer is added to it. Excel recalculates on opening (fullCalcOnLoad). */
+const XLSXPATCH = (function(){
+'use strict';
+const NS = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main';
+const NS_R = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships';
+const NS_XML = 'http://www.w3.org/XML/1998/namespace';
+const parse = t => { const d = new DOMParser().parseFromString(t, 'application/xml'); if (d.getElementsByTagName('parsererror').length) throw new Error('The original workbook has a part that could not be read.'); return d; };
+const ser = doc => { let s = new XMLSerializer().serializeToString(doc); if (!/^<\?xml/.test(s)) s = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n' + s; return s; };
+const kids = (el, n) => el ? Array.from(el.children).filter(c => c.localName === n) : [];
+const kid = (el, n) => el ? Array.from(el.children).find(c => c.localName === n) || null : null;
+const all = (el, n) => el ? Array.from(el.getElementsByTagNameNS('*', n)) : [];
+const refOf = s => { const m = /^\$?([A-Z]+)\$?(\d+)$/.exec(String(s || '')); return m ? {c: FX.colNum(m[1]), r: +m[2]} : null; };
+const addr = (r, c) => FX.colLetter(c) + r;
+const clean = s => String(s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\uFFFE\uFFFF]/g, '');   // characters XML cannot hold
+function rangesOf(sqref){
+  return String(sqref || '').trim().split(/\s+/).filter(Boolean).map(p => { const [a, b] = p.split(':'); const x = refOf(a), y = refOf(b || a); return x && y ? {r1: Math.min(x.r, y.r), c1: Math.min(x.c, y.c), r2: Math.max(x.r, y.r), c2: Math.max(x.c, y.c)} : null; }).filter(Boolean);
+}
+const inRanges = (r, c, rs) => rs.some(x => r >= x.r1 && r <= x.r2 && c >= x.c1 && c <= x.c2);
+function resolvePath(base, target){
+  if (target.startsWith('/')) return target.slice(1);
+  const parts = base.split('/').filter(Boolean);
+  for (const p of target.split('/')){ if (p === '..') parts.pop(); else if (p && p !== '.') parts.push(p); }
+  return parts.join('/');
+}
+const relsPath = part => { const i = part.lastIndexOf('/'); return (i >= 0 ? part.slice(0, i + 1) : '') + '_rels/' + part.slice(i + 1) + '.rels'; };
+/** Turn a group of shared formulas into ordinary ones (needed before a member is overwritten or moved). */
+function unshareIn(sd, siAttr){
+  let master = null; const members = [];
+  for (const c of all(sd, 'c')){ const f = kid(c, 'f'); if (f && f.getAttribute('t') === 'shared' && f.getAttribute('si') === siAttr){ members.push([c, f]); if (f.getAttribute('ref') && f.textContent) master = [c, f]; } }
+  if (!master) return;
+  const m = refOf(master[0].getAttribute('r')), base = master[1].textContent;
+  for (const [c, f] of members){ const p = refOf(c.getAttribute('r')); f.textContent = FX.translate(base, m.r, m.c, p.r, p.c); f.removeAttribute('t'); f.removeAttribute('si'); f.removeAttribute('ref'); }
+}
+async function relMap(text, part){
+  const m = new Map(); const t = await text(relsPath(part)); if (!t) return m;
+  const dir = part.includes('/') ? part.slice(0, part.lastIndexOf('/')) : '';
+  for (const r of all(parse(t), 'Relationship')) if (r.getAttribute('TargetMode') !== 'External') m.set(r.getAttribute('Id'), {target: resolvePath(dir, r.getAttribute('Target')), type: r.getAttribute('Type') || ''});
+  return m;
+}
+
+async function build(bytes, job){
+  const zip = ZIP.open(bytes);
+  const out = new Map(), drop = new Set(), warnings = [];
+  const text = async n => out.has(n) ? out.get(n) : await zip.text(n);
+  const root = parse(await zip.text('_rels/.rels'));
+  const offRel = all(root, 'Relationship').find(r => /\/officeDocument$/.test(r.getAttribute('Type')));
+  const wbPath = offRel ? resolvePath('', offRel.getAttribute('Target')) : 'xl/workbook.xml';
+  const wb = parse(await zip.text(wbPath));
+  const wbRels = await relMap(text, wbPath);
+  const sheetEls = all(wb, 'sheet');
+  const paths = sheetEls.map(s => { const rel = wbRels.get(s.getAttributeNS(NS_R, 'id') || s.getAttribute('r:id')); return rel ? rel.target : null; });
+
+  /* ---- shared strings (new text goes there, like Excel does) ---- */
+  const sstRel = [...wbRels.values()].find(r => /\/sharedStrings$/.test(r.type));
+  const sstDoc = sstRel ? parse(await zip.text(sstRel.target)) : null;
+  const sstIndex = new Map(); let sstN = 0, sstAdded = 0, sstRefs = 0;
+  if (sstDoc) for (const si of kids(sstDoc.documentElement, 'si')){ const t = kid(si, 't'); if (t && !kid(si, 'r') && !sstIndex.has(t.textContent)) sstIndex.set(t.textContent, sstN); sstN++; }
+  function sst(s){
+    s = clean(s); sstRefs++;
+    if (sstIndex.has(s)) return sstIndex.get(s);
+    const si = sstDoc.createElementNS(NS, 'si'), t = sstDoc.createElementNS(NS, 't');
+    if (/^\s|\s$|\n/.test(s)) t.setAttributeNS(NS_XML, 'xml:space', 'preserve');
+    t.textContent = s; si.appendChild(t); sstDoc.documentElement.appendChild(si);
+    sstIndex.set(s, sstN); sstAdded++; return sstN++;
+  }
+
+  /* ---- cell formats ---- */
+  const stRel = [...wbRels.values()].find(r => /\/styles$/.test(r.type));
+  const stDoc = stRel ? parse(await zip.text(stRel.target)) : null, sr = stDoc && stDoc.documentElement, xfsEl = sr && kid(sr, 'cellXfs');
+  let stChanged = false, xfs = xfsEl ? kids(xfsEl, 'xf') : [];
+  const codes = {}; if (stDoc) for (const n of all(stDoc, 'numFmt')) codes[+n.getAttribute('numFmtId')] = n.getAttribute('formatCode');
+  function fmtId(code){
+    for (const id in codes) if (codes[id] === code) return +id;
+    let nfs = kid(sr, 'numFmts'); if (!nfs){ nfs = stDoc.createElementNS(NS, 'numFmts'); sr.insertBefore(nfs, sr.firstElementChild); }
+    const id = Math.max(163, ...Object.keys(codes).map(Number)) + 1, n = stDoc.createElementNS(NS, 'numFmt');
+    n.setAttribute('numFmtId', id); n.setAttribute('formatCode', code); nfs.appendChild(n); nfs.setAttribute('count', kids(nfs, 'numFmt').length);
+    codes[id] = code; stChanged = true; return id;
+  }
+  const addXf = xf => { xfsEl.appendChild(xf); xfs = kids(xfsEl, 'xf'); stChanged = true; return xfs.length - 1; };
+  for (const x of job.newXfs || []){        // appended in order, so they get the numbers the page gave them
+    const xf = stDoc.createElementNS(NS, 'xf'), id = x.nf ? fmtId(x.nf) : 0;
+    xf.setAttribute('numFmtId', id); xf.setAttribute('fontId', '0'); xf.setAttribute('fillId', '0'); xf.setAttribute('borderId', '0'); xf.setAttribute('xfId', '0'); if (id) xf.setAttribute('applyNumberFormat', '1');
+    addXf(xf);
+  }
+  const builtinDate = id => (id >= 14 && id <= 22) || (id >= 27 && id <= 36) || (id >= 45 && id <= 47) || (id >= 50 && id <= 58);
+  const dateXf = s => { const xf = xfs[s]; if (!xf) return false; const id = +(xf.getAttribute('numFmtId') || 0); return codes[id] != null ? FX.isDateFmt(codes[id]) : builtinDate(id); };
+  const cloneMemo = new Map();
+  /** The same cell format with a date number format (font, fill, borders and alignment unchanged). */
+  function dateClone(s, code){
+    const k = s + '|' + code; if (cloneMemo.has(k)) return cloneMemo.get(k);
+    const src = xfs[s] || xfs[0], xf = src.cloneNode(true);
+    xf.setAttribute('numFmtId', fmtId(code)); xf.setAttribute('applyNumberFormat', '1');
+    const i = addXf(xf); cloneMemo.set(k, i); return i;
+  }
+
+  /* ---- sheets ---- */
+  const bySheet = new Map();
+  for (const w of job.writes || []){
+    if (!bySheet.has(w.si)) bySheet.set(w.si, new Map());
+    const m = bySheet.get(w.si), k = w.r + ':' + w.c, prev = m.get(k);
+    if (!prev){ m.set(k, Object.assign({}, w)); continue; }
+    const n = Object.assign({}, prev);                  // a later write wins for the value; a style or width is kept
+    if (w.s != null) n.s = w.s;
+    if (w.width) n.width = w.width;
+    if (w.hasValue || w.f != null){ n.hasValue = !!w.hasValue; n.v = w.v; n.f = w.f != null ? w.f : null; }
+    m.set(k, n);
+  }
+  for (let si = 0; si < paths.length; si++){
+    const path = paths[si]; if (!path) continue;
+    const writes = [...(bySheet.get(si) || new Map()).values()].sort((a, b) => a.r - b.r || a.c - b.c);
+    const doc = parse(await zip.text(path)), ws = doc.documentElement, sd = kid(ws, 'sheetData');
+    if (!sd) continue;
+    let changed = false;
+    const mk = n => doc.createElementNS(NS, n);
+    // index rows and cells (fill in missing r= attributes the way Excel reads them)
+    const rows = new Map(); let rn = 0;
+    for (const row of kids(sd, 'row')){ rn = row.hasAttribute('r') ? +row.getAttribute('r') : rn + 1; if (!row.hasAttribute('r')) row.setAttribute('r', rn); rows.set(rn, row); let cn = 0; for (const c of kids(row, 'c')){ const p = refOf(c.getAttribute('r')); cn = p ? p.c : cn + 1; if (!p) c.setAttribute('r', addr(rn, cn)); } }
+    const arrays = [];   // ranges held by array formulas: their inner cells are not written separately
+    for (const f of all(sd, 'f')) if (f.getAttribute('t') === 'array' && f.getAttribute('ref')){ const a = rangesOf(f.getAttribute('ref'))[0]; const p = refOf(f.parentNode.getAttribute('r')); if (a && p) arrays.push({a, r: p.r, c: p.c}); }
+    function getRow(r){
+      let row = rows.get(r); if (row) return row;
+      row = mk('row'); row.setAttribute('r', r);
+      const after = [...rows.keys()].filter(x => x > r).sort((a, b) => a - b)[0];
+      sd.insertBefore(row, after != null ? rows.get(after) : null); rows.set(r, row); return row;
+    }
+    function cellAt(r, c){ const row = rows.get(r); return row ? kids(row, 'c').find(el => refOf(el.getAttribute('r')).c === c) || null : null; }
+    function getCell(r, c){
+      const row = getRow(r);
+      for (const el of kids(row, 'c')){ const p = refOf(el.getAttribute('r')); if (p.c === c) return el; if (p.c > c){ const n = mk('c'); n.setAttribute('r', addr(r, c)); row.insertBefore(n, el); return n; } }
+      const n = mk('c'); n.setAttribute('r', addr(r, c)); row.insertBefore(n, kid(row, 'extLst'));
+      const sp = row.getAttribute('spans'); if (sp){ const [a, b] = sp.split(':').map(Number); if (c > b || c < a) row.setAttribute('spans', `${Math.min(a, c)}:${Math.max(b, c)}`); }
+      return n;
+    }
+    const unshare = siAttr => unshareIn(sd, siAttr);
+    function clearContent(el){ for (const n of ['v', 'is']){ const x = kid(el, n); if (x) el.removeChild(x); } el.removeAttribute('t'); }
+    function putV(el, s){ const v = mk('v'); v.textContent = s; el.insertBefore(v, kid(el, 'extLst')); }
+    function setValue(el, v){
+      clearContent(el);
+      if (v == null || v === '') return;
+      if (typeof v === 'number'){ if (isFinite(v)) putV(el, String(v)); else { el.setAttribute('t', 'e'); putV(el, '#NUM!'); } }
+      else if (typeof v === 'boolean'){ el.setAttribute('t', 'b'); putV(el, v ? '1' : '0'); }
+      else if (v instanceof FX.XErr || (v && typeof v === 'object' && 'e' in v)){ el.setAttribute('t', 'e'); putV(el, v.e); }
+      else if (sstDoc){ el.setAttribute('t', 's'); putV(el, String(sst(String(v)))); }
+      else { el.setAttribute('t', 'inlineStr'); const is = mk('is'), t = mk('t'); t.textContent = clean(v); if (/^\s|\s$/.test(String(v))) t.setAttributeNS(NS_XML, 'xml:space', 'preserve'); is.appendChild(t); el.insertBefore(is, kid(el, 'extLst')); }
+    }
+    function setResult(el, v){
+      // the stored result of a formula cell
+      clearContent(el);
+      if (v == null || v === ''){ el.setAttribute('t', 'str'); putV(el, ''); return; }
+      if (typeof v === 'number'){ if (isFinite(v)) putV(el, String(v)); else { el.setAttribute('t', 'e'); putV(el, '#NUM!'); } return; }
+      if (typeof v === 'boolean'){ el.setAttribute('t', 'b'); putV(el, v ? '1' : '0'); return; }
+      if (v instanceof FX.XErr){ el.setAttribute('t', 'e'); putV(el, v.e); return; }
+      el.setAttribute('t', 'str'); putV(el, clean(v));
+    }
+    const written = new Set();
+    for (const w of writes){
+      const inner = arrays.find(x => inRanges(w.r, w.c, [x.a]) && !(x.r === w.r && x.c === w.c));
+      if (inner && (w.hasValue || w.f != null)){ warnings.push(`${sheetEls[si].getAttribute('name')}!${addr(w.r, w.c)} is part of an array formula and was not written`); continue; }
+      const el = getCell(w.r, w.c); changed = true;
+      if (w.s != null) el.setAttribute('s', w.s);
+      if (!w.hasValue && w.f == null) continue;
+      const f = kid(el, 'f');
+      if (f){
+        if (f.getAttribute('t') === 'shared' && f.getAttribute('si') != null){ unshare(f.getAttribute('si')); }
+        el.removeChild(kid(el, 'f'));
+        if (el.hasAttribute('cm')) el.removeAttribute('cm');
+      }
+      if (w.f != null){
+        const nf = mk('f'); nf.textContent = clean(w.f).replace(/^=/, ''); el.insertBefore(nf, el.firstElementChild);
+        setResult(el, job.value(si, w.r, w.c));
+      } else setValue(el, w.v);
+      written.add(w.r + ':' + w.c);
+    }
+    // date columns: cells without a date number format get one (otherwise a date shows as 46304)
+    for (const d of (job.dateCols || []).filter(d => d.si === si)){
+      if (!stDoc) break;
+      for (let r = d.r1; r <= d.r2; r++){
+        const el = cellAt(r, d.c); if (!el) continue;
+        const t = el.getAttribute('t'); if (t && t !== 'n') continue;          // text, true/false, errors: nothing to show as a date
+        const st = +(el.getAttribute('s') || 0); if (dateXf(st)) continue;
+        el.setAttribute('s', dateClone(st, d.nf)); changed = true;
+      }
+    }
+    // formula results: store the page's values where they changed, so files opened without recalculating are right too
+    if (job.value){
+      for (const [r, row] of rows) for (const el of kids(row, 'c')){
+        const f = kid(el, 'f'); if (!f || el.hasAttribute('cm') || f.getAttribute('t') === 'array' || f.getAttribute('t') === 'dataTable') continue;
+        const p = refOf(el.getAttribute('r')); if (written.has(p.r + ':' + p.c)) continue;
+        const nv = job.value(si, p.r, p.c), ov = job.cached ? job.cached(si, p.r, p.c) : undefined;
+        if (ov !== undefined && FX.same(nv, ov)) continue;
+        setResult(el, nv); changed = true;
+      }
+    }
+    // drop-down lists
+    for (const dv of kids(kid(ws, 'dataValidations'), 'dataValidation')){
+      if (dv.getAttribute('type') !== 'list') continue;
+      const f1 = kid(dv, 'formula1'); if (!f1) continue;
+      const raw = f1.textContent.trim(); if (!/^".*"$/.test(raw)) continue;
+      const items = raw.slice(1, -1).split(','), lc = new Set(items.map(s => s.trim().toLowerCase())), add = [];
+      if (['good', 'fair', 'unacceptable'].every(x => lc.has(x)) && !lc.has('no condition rating')) add.push('No condition rating');
+      if (!add.length) continue;
+      const next = items.concat(add).join(',');
+      if (next.length > 255){ warnings.push(`The drop-down list in ${sheetEls[si].getAttribute('name')} ${dv.getAttribute('sqref')} is full; ${add.join(', ')} not added`); continue; }
+      f1.textContent = '"' + next + '"'; changed = true;
+    }
+    // sheet size and widths for columns that were added
+    if (writes.length){
+      const dim = kid(ws, 'dimension');
+      if (dim){ const rs = rangesOf(dim.getAttribute('ref')); if (rs.length){ const d = rs[0]; for (const w of writes){ d.r1 = Math.min(d.r1, w.r); d.c1 = Math.min(d.c1, w.c); d.r2 = Math.max(d.r2, w.r); d.c2 = Math.max(d.c2, w.c); } dim.setAttribute('ref', `${addr(d.r1, d.c1)}:${addr(d.r2, d.c2)}`); } }
+      for (const w of writes) if (w.width){
+        let cols = kid(ws, 'cols'); if (!cols){ cols = mk('cols'); ws.insertBefore(cols, sd); }
+        if (!kids(cols, 'col').some(x => +x.getAttribute('min') <= w.c && +x.getAttribute('max') >= w.c)){
+          const col = mk('col'); col.setAttribute('min', w.c); col.setAttribute('max', w.c); col.setAttribute('width', w.width); col.setAttribute('customWidth', '1');
+          cols.insertBefore(col, kids(cols, 'col').find(x => +x.getAttribute('min') > w.c) || null);
+        }
+      }
+    }
+    // tables on this sheet that grow by a column
+    if (job.tables && job.tables.length){
+      const shRels = await relMap(text, path);
+      for (const tp of all(ws, 'tablePart')){
+        const rel = shRels.get(tp.getAttributeNS(NS_R, 'id') || tp.getAttribute('r:id')); if (!rel) continue;
+        const tdoc = parse(await text(rel.target)), te = tdoc.documentElement;
+        const name = te.getAttribute('displayName') || te.getAttribute('name');
+        const t = job.tables.find(x => x.name === name); if (!t) continue;
+        const tcs = kid(te, 'tableColumns'); if (!tcs) continue;
+        if (kids(tcs, 'tableColumn').some(x => (x.getAttribute('name') || '').toLowerCase() === t.col.toLowerCase())) continue;
+        if (t.rename){   // the placeholder column was inside the table: its column takes the new name
+          const tc = kids(tcs, 'tableColumn').find(x => (x.getAttribute('name') || '') === t.rename);
+          if (tc){ tc.setAttribute('name', t.col); out.set(rel.target, ser(tdoc)); }
+          else warnings.push(`table ${name}: column “${t.rename}” not found to rename`);
+          continue;
+        }
+        te.setAttribute('ref', t.ref); const af = kid(te, 'autoFilter'); if (af) af.setAttribute('ref', t.ref);
+        const tc = tdoc.createElementNS(NS, 'tableColumn'); tc.setAttribute('id', Math.max(0, ...kids(tcs, 'tableColumn').map(x => +x.getAttribute('id') || 0)) + 1); tc.setAttribute('name', t.col);
+        tcs.appendChild(tc); tcs.setAttribute('count', kids(tcs, 'tableColumn').length);
+        out.set(rel.target, ser(tdoc));
+      }
+    }
+    if (changed) out.set(path, ser(doc));
+  }
+  if (stDoc && stChanged){ xfsEl.setAttribute('count', xfs.length); out.set(stRel.target, ser(stDoc)); }
+  if (sstDoc && (sstAdded || sstRefs)){
+    const r = sstDoc.documentElement; r.setAttribute('uniqueCount', sstN); r.setAttribute('count', (+r.getAttribute('count') || 0) + sstRefs);
+    out.set(sstRel.target, ser(sstDoc));
+  }
+
+  /* ---- recalculate on opening; drop the calculation chain (Excel rebuilds it) ---- */
+  let cp = kid(wb.documentElement, 'calcPr');
+  if (!cp){ cp = wb.createElementNS(NS, 'calcPr'); const after = kid(wb.documentElement, 'definedNames') || kid(wb.documentElement, 'sheets'); wb.documentElement.insertBefore(cp, after ? after.nextSibling : null); }
+  cp.setAttribute('fullCalcOnLoad', '1');
+  out.set(wbPath, ser(wb));
+  const chain = [...wbRels.entries()].find(([, r]) => /\/calcChain$/.test(r.type));
+  if (chain){
+    drop.add(chain[1].target);
+    const rp = relsPath(wbPath), rd = parse(await zip.text(rp));
+    for (const r of all(rd, 'Relationship')) if (r.getAttribute('Id') === chain[0]) r.parentNode.removeChild(r);
+    out.set(rp, ser(rd));
+    const ct = parse(await zip.text('[Content_Types].xml'));
+    for (const o of all(ct, 'Override')) if (o.getAttribute('PartName') === '/' + chain[1].target) o.parentNode.removeChild(o);
+    out.set('[Content_Types].xml', ser(ct));
+  }
+
+  const files = [];
+  for (const name of zip.names){
+    if (drop.has(name) || name.endsWith('/')) continue;
+    files.push({name, data: out.has(name) ? out.get(name) : await zip.bytes(name)});
+  }
+  return {blob: await ZIP.build(files, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'), warnings};
+}
+/* ============================== moving a column ============================== */
+/** Column numbers after column `from` is moved so that it ends up at `to` (Excel's cut + "Insert Cut Cells"), or
+    after a new, empty column is inserted at `to` (from = null).
+    pos: where each cell goes. cell / range: where references go - a reference to a single column follows it, a range
+    keeps ends that do not move, grows when the new column lands inside it, and shrinks when the moved column leaves it. */
+function colMove(from, to){
+  if (from == null){           // references stop at the last column (XFD), as in Excel; cells there cannot move (see relayout)
+    const cell = c => c >= to ? Math.min(c + 1, LAST_COL) : c;
+    return {pos: c => c >= to ? c + 1 : c, cell, range: (a, b) => [cell(a), b >= to ? Math.min(b + 1, LAST_COL) : b]};
+  }
+  if (from === to) return null;
+  const pos = from > to ? (c => c === from ? to : c >= to && c < from ? c + 1 : c) : (c => c === from ? to : c > from && c <= to ? c - 1 : c);
+  const ins = from > to ? to : to + 1, del = from > to ? from + 1 : from;      // = insert a column at ins, then delete del
+  const range = (a, b) => { a = a >= ins ? a + 1 : a; b = b >= ins ? b + 1 : b; return [a > del ? a - 1 : a, b >= del ? b - 1 : b]; };
+  return {pos, cell: pos, range};
+}
+const LAST_COL = 16384;
+const AREA = /^(\$?)([A-Za-z]{1,3})(\$?)(\d+)(?::(\$?)([A-Za-z]{1,3})(\$?)(\d+))?$/;
+function mapArea(ref, mv){
+  const m = AREA.exec(String(ref || '').trim()); if (!m) return ref;
+  const c1 = FX.colNum(m[2]);
+  if (m[6] == null) return m[1] + FX.colLetter(mv.cell(c1)) + m[3] + m[4];
+  const c2 = FX.colNum(m[6]), lo = Math.min(c1, c2), hi = Math.max(c1, c2);
+  const [a, b] = lo === hi ? [mv.cell(lo), mv.cell(lo)] : mv.range(lo, hi);
+  return m[1] + FX.colLetter(c1 <= c2 ? a : b) + m[3] + m[4] + ':' + m[5] + FX.colLetter(c1 <= c2 ? b : a) + m[7] + m[8];
+}
+const mapSqref = (s, mv) => String(s || '').trim().split(/\s+/).filter(Boolean).map(x => mapArea(x, mv)).join(' ');
+const escRe = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+/** Move one column of a sheet in the original file (or insert a new one), the way Excel does it: cells, column
+    widths, formulas on every sheet, shared formulas, drop-down lists, format rules, merged cells, the sheet's
+    tables, charts, defined names, pivot sources, comments and pictures all follow. Cached results stay as they
+    are (moving a column does not change any value); Excel recalculates on opening.
+      plan: {sheet, from (column number, or null for a new column), to (the column number it ends up at),
+             headerRow, header (text for the column's header cell, or null), width, table (table that must
+             include the column)}
+    -> {bytes, warnings} */
+async function relayout(bytes, plan){
+  const mv = colMove(plan.from, plan.to);
+  if (!mv) return {bytes, warnings: []};
+  const zip = ZIP.open(bytes);
+  const out = new Map(), drop = new Set(), warnings = [];
+  const text = async n => out.has(n) ? out.get(n) : await zip.text(n);
+  const root = parse(await zip.text('_rels/.rels'));
+  const offRel = all(root, 'Relationship').find(r => /\/officeDocument$/.test(r.getAttribute('Type')));
+  const wbPath = offRel ? resolvePath('', offRel.getAttribute('Target')) : 'xl/workbook.xml';
+  const wb = parse(await zip.text(wbPath));
+  const wbRels = await relMap(text, wbPath);
+  const sheetEls = all(wb, 'sheet'), names = sheetEls.map(s => s.getAttribute('name') || '');
+  const paths = sheetEls.map(s => { const rel = wbRels.get(s.getAttributeNS(NS_R, 'id') || s.getAttribute('r:id')); return rel ? rel.target : null; });
+  const tsi = names.findIndex(n => n.toLowerCase() === String(plan.sheet).toLowerCase());
+  if (tsi < 0 || !paths[tsi]) throw new Error(`Sheet “${plan.sheet}” not found in the workbook.`);
+  const target = names[tsi];
+  const fx = (t, own) => FX.remapCols(t, own, target, mv);
+  const quoted = "'" + target.replace(/'/g, "''") + "'!", bare = new RegExp('(^|[^A-Za-z0-9_.\\u00C0-\\uFFFF\\]])' + escRe(target) + '!', 'i');
+  const mentions = t => t.toLowerCase().includes(quoted.toLowerCase()) || bare.test(t);
+  const reText = (el, own) => { const t = el.textContent; if (!t) return false; const nt = fx(t, own); if (nt === t) return false; el.textContent = nt; return true; };
+
+  /* shared strings (the header text) */
+  const sstRel = [...wbRels.values()].find(r => /\/sharedStrings$/.test(r.type));
+  const sstDoc = sstRel ? parse(await zip.text(sstRel.target)) : null;
+  let sstChanged = false;
+  function sstIndex(s){
+    const list = kids(sstDoc.documentElement, 'si');
+    const i = list.findIndex(si => { const t = kid(si, 't'); return t && !kid(si, 'r') && t.textContent === s; });
+    if (i >= 0) return i;
+    const si = sstDoc.createElementNS(NS, 'si'), t = sstDoc.createElementNS(NS, 't'); t.textContent = clean(s); si.appendChild(t); sstDoc.documentElement.appendChild(si);
+    const r = sstDoc.documentElement; r.setAttribute('uniqueCount', list.length + 1); r.setAttribute('count', (+r.getAttribute('count') || 0) + 1);
+    sstChanged = true; return list.length;
+  }
+
+  for (let si = 0; si < paths.length; si++){
+    const path = paths[si]; if (!path) continue;
+    const own = names[si], isT = si === tsi;
+    const doc = parse(await zip.text(path)), ws = doc.documentElement, sd = kid(ws, 'sheetData');
+    const mk = n => doc.createElementNS(NS, n);
+    let changed = false;
+    if (sd){
+      let rn = 0;
+      for (const row of kids(sd, 'row')){ rn = row.hasAttribute('r') ? +row.getAttribute('r') : rn + 1; if (!row.hasAttribute('r')) row.setAttribute('r', rn); let cn = 0; for (const c of kids(row, 'c')){ const p = refOf(c.getAttribute('r')); cn = p ? p.c : cn + 1; if (!p) c.setAttribute('r', addr(rn, cn)); } }
+      // shared formulas spread over several columns are expanded, so each cell's references can follow on their own
+      const groups = new Set();
+      for (const f of all(sd, 'f')){
+        if (f.getAttribute('t') !== 'shared' || !f.getAttribute('ref') || !f.textContent) continue;
+        const a = rangesOf(f.getAttribute('ref'))[0];
+        if (a && a.c1 !== a.c2 && (isT || mentions(f.textContent))) groups.add(f.getAttribute('si'));
+      }
+      for (const id of groups){ unshareIn(sd, id); changed = true; }
+      for (const f of all(sd, 'f')){
+        if (reText(f, own)) changed = true;
+        if (isT && f.getAttribute('ref')){ const nr = mapArea(f.getAttribute('ref'), mv); if (nr !== f.getAttribute('ref')){ f.setAttribute('ref', nr); changed = true; } }
+      }
+      if (isT){
+        // the cells themselves
+        for (const row of kids(sd, 'row')){
+          const cells = kids(row, 'c'); let moved = false;
+          for (const c of cells){
+            const p = refOf(c.getAttribute('r')), nc = mv.pos(p.c);
+            if (nc > LAST_COL) throw new Error(`${target}!${addr(p.r, p.c)} is in the last column of the sheet and has no room to move`);
+            if (nc !== p.c){ c.setAttribute('r', addr(p.r, nc)); moved = true; }
+          }
+          if (!moved) continue;
+          const ext = kid(row, 'extLst');
+          cells.sort((a, b) => refOf(a.getAttribute('r')).c - refOf(b.getAttribute('r')).c).forEach(c => row.insertBefore(c, ext));
+          row.removeAttribute('spans');                      // optional hint; Excel works it out again
+        }
+        changed = true;
+        // the header of the moved / new column
+        if (plan.header && plan.headerRow){
+          const r = plan.headerRow;
+          let row = kids(sd, 'row').find(x => +x.getAttribute('r') === r);
+          if (!row){ row = mk('row'); row.setAttribute('r', r); sd.insertBefore(row, kids(sd, 'row').find(x => +x.getAttribute('r') > r) || null); }
+          let cell = kids(row, 'c').find(c => refOf(c.getAttribute('r')).c === plan.to);
+          if (!cell){
+            cell = mk('c'); cell.setAttribute('r', addr(r, plan.to));
+            const left = kids(row, 'c').find(c => refOf(c.getAttribute('r')).c === plan.to - 1);
+            if (left && left.getAttribute('s')) cell.setAttribute('s', left.getAttribute('s'));
+            row.insertBefore(cell, kids(row, 'c').find(c => refOf(c.getAttribute('r')).c > plan.to) || kid(row, 'extLst'));
+          }
+          if (!+(cell.getAttribute('s') || 0)){          // a placeholder header without a format of its own looks like its neighbour
+            const left = kids(row, 'c').find(c => refOf(c.getAttribute('r')).c === plan.to - 1);
+            if (left && +(left.getAttribute('s') || 0)) cell.setAttribute('s', left.getAttribute('s'));
+          }
+          if (!plan.keepHeader){                         // an existing Yard Maintenance Date header keeps its own text
+            for (const n of ['f', 'v', 'is']){ const x = kid(cell, n); if (x) cell.removeChild(x); }
+            const v = mk('v');
+            if (sstDoc){ cell.setAttribute('t', 's'); v.textContent = String(sstIndex(plan.header)); cell.appendChild(v); }
+            else { cell.setAttribute('t', 'inlineStr'); const is = mk('is'), t = mk('t'); t.textContent = clean(plan.header); is.appendChild(t); cell.appendChild(is); }
+          }
+        }
+        // sheet size
+        const dim = kid(ws, 'dimension');
+        if (dim){ let r1 = Infinity, c1 = Infinity, r2 = 0, c2 = 0; for (const c of all(sd, 'c')){ const p = refOf(c.getAttribute('r')); if (!p) continue; r1 = Math.min(r1, p.r); r2 = Math.max(r2, p.r); c1 = Math.min(c1, p.c); c2 = Math.max(c2, p.c); } if (r2) dim.setAttribute('ref', r1 === r2 && c1 === c2 ? addr(r1, c1) : `${addr(r1, c1)}:${addr(r2, c2)}`); }
+      }
+    }
+    // texts of format rules and drop-down lists (in the sheet and in its Excel 2010 extensions)
+    for (const n of ['formula', 'formula1', 'formula2']) for (const el of all(ws, n)) if (kid(el, 'f') == null && reText(el, own)) changed = true;
+    for (const ext of kids(ws, 'extLst')) for (const el of all(ext, 'f')) if (reText(el, own)) changed = true;
+    if (isT){
+      for (const tag of ['conditionalFormatting', 'dataValidation', 'protectedRange', 'ignoredError', 'selection']) for (const el of all(ws, tag)) if (el.getAttribute('sqref')) el.setAttribute('sqref', mapSqref(el.getAttribute('sqref'), mv));
+      for (const el of all(ws, 'sqref')) el.textContent = mapSqref(el.textContent, mv);
+      for (const tag of ['mergeCell', 'hyperlink', 'sortCondition', 'sortState']) for (const el of all(ws, tag)) if (el.getAttribute('ref')) el.setAttribute('ref', mapArea(el.getAttribute('ref'), mv));
+      for (const el of all(ws, 'pane')) if (el.getAttribute('topLeftCell')) el.setAttribute('topLeftCell', mapArea(el.getAttribute('topLeftCell'), mv));
+      for (const el of all(ws, 'selection')) if (el.getAttribute('activeCell')) el.setAttribute('activeCell', mapArea(el.getAttribute('activeCell'), mv));
+      const af = kid(ws, 'autoFilter'); if (af) moveFilter(af, mv);
+      if (kid(ws, 'colBreaks')) warnings.push(`${target}: page breaks between columns were not moved`);
+      // column widths and formats
+      const cols = kid(ws, 'cols'), per = new Map();
+      if (cols) for (const c of kids(cols, 'col')){ const at = {}; for (const x of Array.from(c.attributes)) if (x.name !== 'min' && x.name !== 'max') at[x.name] = x.value; for (let i = +c.getAttribute('min'); i <= +c.getAttribute('max') && i <= 16384; i++) per.set(i, at); }
+      const np = new Map(); for (const [c, at] of per){ const n = mv.pos(c); if (n <= 16384) np.set(n, at); }
+      if (plan.width){ const cur = np.get(plan.to); if (!cur || !cur.width || cur.hidden === '1' || +cur.width < plan.width) np.set(plan.to, Object.assign({}, cur || {}, {width: String(plan.width), customWidth: '1'}, cur && cur.hidden ? {hidden: '0'} : {})); }
+      if (np.size){
+        let ce = cols; if (!ce){ ce = mk('cols'); ws.insertBefore(ce, sd); }
+        while (ce.firstChild) ce.removeChild(ce.firstChild);
+        const keys = [...np.keys()].sort((a, b) => a - b);
+        for (let i = 0; i < keys.length;){
+          let j = i; const sig = JSON.stringify(np.get(keys[i]));
+          while (j + 1 < keys.length && keys[j + 1] === keys[j] + 1 && JSON.stringify(np.get(keys[j + 1])) === sig) j++;
+          const col = mk('col'); col.setAttribute('min', keys[i]); col.setAttribute('max', keys[j]);
+          for (const [k, v] of Object.entries(np.get(keys[i]))) col.setAttribute(k, v);
+          ce.appendChild(col); i = j + 1;
+        }
+      }
+      changed = true;
+    }
+    if (changed) out.set(path, ser(doc));
+    // tables on this sheet: their formulas, and for the moved sheet their place and columns
+    const shRels = await relMap(text, path);
+    for (const tp of all(ws, 'tablePart')){
+      const rel = shRels.get(tp.getAttributeNS(NS_R, 'id') || tp.getAttribute('r:id')); if (!rel) continue;
+      const tdoc = parse(await text(rel.target)), te = tdoc.documentElement;
+      let tch = false;
+      for (const n of ['calculatedColumnFormula', 'totalsRowFormula']) for (const el of all(te, n)) if (reText(el, own)) tch = true;
+      if (isT){ moveTable(tdoc, mv, plan, warnings); tch = true; }
+      if (tch) out.set(rel.target, ser(tdoc));
+    }
+    if (isT){
+      for (const rel of shRels.values()){
+        if (/\/drawing$/.test(rel.type)){       // pictures and charts placed on the sheet: anchors are 0-based column numbers
+          const d = parse(await text(rel.target)); let dch = false;
+          for (const tag of ['from', 'to']) for (const el of all(d, tag)){ const c = kid(el, 'col'); if (!c) continue; const n = mv.pos(+c.textContent + 1) - 1; if (n !== +c.textContent){ c.textContent = n; dch = true; } }
+          if (dch) out.set(rel.target, ser(d));
+        } else if (/\/(comments|threadedComment)$/.test(rel.type)){
+          const d = parse(await text(rel.target)); let dch = false;
+          for (const tag of ['comment', 'threadedComment']) for (const el of all(d, tag)) if (el.getAttribute('ref')){ el.setAttribute('ref', mapArea(el.getAttribute('ref'), mv)); dch = true; }
+          if (dch) out.set(rel.target, ser(d));
+        } else if (/\/vmlDrawing$/.test(rel.type)){     // old-style comment boxes (VML is not always well-formed XML)
+          const t = await text(rel.target); if (!t) continue;
+          const nt = t.replace(/(<(?:[\w.-]+:)?Column>\s*)(\d+)(\s*<\/(?:[\w.-]+:)?Column>)/g, (m, a, n, b) => a + (mv.pos(+n + 1) - 1) + b)
+                      .replace(/(<(?:[\w.-]+:)?Anchor>\s*)(\d+)(\s*,[^,]*,[^,]*,[^,]*,\s*)(\d+)/g, (m, a, l, mid, r) => a + (mv.pos(+l + 1) - 1) + mid + (mv.pos(+r + 1) - 1));
+          if (nt !== t) out.set(rel.target, nt);
+        }
+      }
+    }
+  }
+  // charts anywhere in the workbook
+  for (const name of zip.names){
+    if (!/^xl\/charts\/chart[^/]*\.xml$/i.test(name)) continue;
+    const d = parse(await text(name)); let ch = false;
+    for (const f of all(d, 'f')) if (reText(f, null)) ch = true;
+    if (ch) out.set(name, ser(d));
+  }
+  // pivot tables built from the moved sheet
+  for (const name of zip.names){
+    if (!/pivotCacheDefinition[^/]*\.xml$/i.test(name)) continue;
+    const d = parse(await text(name)); let ch = false;
+    for (const el of all(d, 'worksheetSource')) if ((el.getAttribute('sheet') || '').toLowerCase() === target.toLowerCase() && el.getAttribute('ref')){ el.setAttribute('ref', mapArea(el.getAttribute('ref'), mv)); ch = true; }
+    if (ch) out.set(name, ser(d));
+  }
+  // defined names (print areas, named ranges)
+  for (const dn of all(wb, 'definedName')){ const ls = dn.getAttribute('localSheetId'); reText(dn, ls != null ? names[+ls] || null : null); }
+  if (sstDoc && sstChanged) out.set(sstRel.target, ser(sstDoc));
+  // recalculate on opening; the calculation chain lists cells by address, so it goes
+  let cp = kid(wb.documentElement, 'calcPr');
+  if (!cp){ cp = wb.createElementNS(NS, 'calcPr'); const after = kid(wb.documentElement, 'definedNames') || kid(wb.documentElement, 'sheets'); wb.documentElement.insertBefore(cp, after ? after.nextSibling : null); }
+  cp.setAttribute('fullCalcOnLoad', '1');
+  out.set(wbPath, ser(wb));
+  const chain = [...wbRels.entries()].find(([, r]) => /\/calcChain$/.test(r.type));
+  if (chain){
+    drop.add(chain[1].target);
+    const rp = relsPath(wbPath), rd = parse(await zip.text(rp));
+    for (const r of all(rd, 'Relationship')) if (r.getAttribute('Id') === chain[0]) r.parentNode.removeChild(r);
+    out.set(rp, ser(rd));
+    const ct = parse(await zip.text('[Content_Types].xml'));
+    for (const o of all(ct, 'Override')) if (o.getAttribute('PartName') === '/' + chain[1].target) o.parentNode.removeChild(o);
+    out.set('[Content_Types].xml', ser(ct));
+  }
+  const files = [];
+  for (const name of zip.names){
+    if (drop.has(name) || name.endsWith('/')) continue;
+    files.push({name, data: out.has(name) ? out.get(name) : await zip.bytes(name)});
+  }
+  const blob = await ZIP.build(files, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+  return {bytes: new Uint8Array(await blob.arrayBuffer()), warnings};
+}
+/** An auto-filter's range and the column numbers of its filters (counted from its first column). */
+function moveFilter(af, mv){
+  const a = rangesOf(af.getAttribute('ref'))[0]; if (!a) return;
+  af.setAttribute('ref', mapArea(af.getAttribute('ref'), mv));
+  const b = rangesOf(af.getAttribute('ref'))[0];
+  for (const fc of kids(af, 'filterColumn')){ const n = mv.pos(a.c1 + (+fc.getAttribute('colId') || 0)) - b.c1; fc.setAttribute('colId', Math.max(0, n)); }
+}
+/** A table on the moved sheet: its columns follow their cells; the moved (or new) column joins plan.table. */
+function moveTable(tdoc, mv, plan, warnings){
+  const te = tdoc.documentElement, a = rangesOf(te.getAttribute('ref'))[0], tcs = kid(te, 'tableColumns'); if (!a || !tcs) return;
+  const name = te.getAttribute('displayName') || te.getAttribute('name');
+  const slots = kids(tcs, 'tableColumn').map((tc, k) => ({tc, c: mv.pos(a.c1 + k), from: a.c1 + k}));
+  if (plan.table && plan.table === name){
+    const inside = plan.from != null && plan.from >= a.c1 && plan.from <= a.c2;
+    if (inside){ const s = slots.find(x => x.from === plan.from); if (s && plan.header && !plan.keepHeader) s.tc.setAttribute('name', plan.header); }
+    else {
+      if (slots.some(x => (x.tc.getAttribute('name') || '').toLowerCase() === String(plan.header || '').toLowerCase())) throw new Error(`table ${name} already has a column “${plan.header}”`);
+      const tc = tdoc.createElementNS(NS, 'tableColumn');
+      tc.setAttribute('id', Math.max(0, ...slots.map(x => +x.tc.getAttribute('id') || 0)) + 1); tc.setAttribute('name', plan.header || 'Column');
+      slots.push({tc, c: plan.to, from: plan.from});
+    }
+  }
+  slots.sort((x, y) => x.c - y.c);
+  const c1 = slots[0].c, c2 = slots[slots.length - 1].c;
+  if (c2 - c1 + 1 !== slots.length) throw new Error(`the move would split the Excel table ${name}`);   // the import then keeps the old layout
+  for (const s of slots) tcs.appendChild(s.tc);
+  tcs.setAttribute('count', slots.length);
+  te.setAttribute('ref', `${addr(a.r1, c1)}:${addr(a.r2, c2)}`);
+  const af = kid(te, 'autoFilter');
+  if (af){
+    const f = rangesOf(af.getAttribute('ref'))[0];
+    if (f){ for (const fc of kids(af, 'filterColumn')){ const n = mv.pos(f.c1 + (+fc.getAttribute('colId') || 0)) - c1; fc.setAttribute('colId', Math.max(0, n)); } af.setAttribute('ref', `${addr(f.r1, c1)}:${addr(f.r2, c2)}`); }
+  }
+  for (const tag of ['sortState', 'sortCondition']) for (const el of all(te, tag)) if (el.getAttribute('ref')) el.setAttribute('ref', mapArea(el.getAttribute('ref'), mv));
+}
+return {build, relayout, colMove};
+})();
+
+</script>
+<script>
 /* ---- store.js ---- */
 /* store.js - how a rig's workbook is kept in the shared database.
    rigs/{RIG}                      rig document: version, file, styles, tables, sheet list, headline summary
@@ -2310,7 +2979,7 @@ function newVersion(){ return 'v' + new Date().toISOString().replace(/[-:TZ.]/g,
 function toDocs(rig, model, ver, info){
   const parts = [], sheets = [];
   model.sheets.forEach((s, i) => {
-    const meta = {ver, kind: 'meta', i, name: s.name, state: s.state, maxRow: s.maxRow, maxCol: s.maxCol, colW: s.colW, rowH: s.rowH, hiddenRows: s.hiddenRows, hiddenCols: s.hiddenCols, merges: s.merges, freeze: s.freeze, tabColor: s.tabColor, charts: s.charts, ftab: s.ftab};
+    const meta = {ver, kind: 'meta', i, name: s.name, state: s.state, maxRow: s.maxRow, maxCol: s.maxCol, colW: s.colW, rowH: s.rowH, hiddenRows: s.hiddenRows, hiddenCols: s.hiddenCols, merges: s.merges, dv: s.dv || [], freeze: s.freeze, tabColor: s.tabColor, charts: s.charts, ftab: s.ftab};
     let fchunks = 0;
     if (size(meta) > CHUNK){                        // very large formula tables go in their own documents
       meta.ftab = null;
@@ -2344,7 +3013,112 @@ function fromDocs(rigDoc, partDocs){
   return {file: rigDoc.file, savedAt: rigDoc.savedAt, styles: rigDoc.styles || [{}], tables: rigDoc.tables || [], names: rigDoc.names || [], sheets};
 }
 const editDocId = (ver, si, r) => `${ver}-s${si}-b${Math.floor(r / BLOCK)}`;
-return {newVersion, toDocs, fromDocs, editDocId, BLOCK};
+
+/* rigs/{RIG}/src/{ver}-k{n}   the original .xlsx (base64, in chunks), so "Export workbook" can write the
+   changes back into it with every formula, list, table and chart intact */
+function toB64(u8){ let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); }
+function fromB64(b64){ const bin = atob(b64), u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u; }
+function srcDocs(ver, bytes){
+  const b64 = toB64(bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes)), n = Math.max(1, Math.ceil(b64.length / CHUNK)), out = [];
+  for (let k = 0; k < n; k++) out.push({id: `${ver}-k${k}`, data: {ver, k, n, b64: b64.slice(k * CHUNK, (k + 1) * CHUNK)}});
+  return out;
+}
+/** Join the chunks again; null if any chunk is missing. */
+function srcFromDocs(docs, ver){
+  const list = docs.filter(d => d && d.ver === ver).sort((a, b) => a.k - b.k);
+  if (!list.length || list.length !== list[0].n || list.some((d, i) => d.k !== i)) return null;
+  return fromB64(list.map(d => d.b64).join(''));
+}
+return {newVersion, toDocs, fromDocs, editDocId, BLOCK, srcDocs, srcFromDocs};
+})();
+
+</script>
+<script>
+/* ---- local.js ---- */
+/* local.js - this device's own copy, kept in the browser (IndexedDB), so the page works without a connection:
+     docs    every document last read from the database (rig list, workbook parts, edits, original file, marks)
+     outbox  cell changes made on this device that have not reached the database yet
+     kv      small settings and timestamps
+   If the browser cannot keep data (no IndexedDB, private mode, storage refused) every call quietly
+   does nothing and the page simply works online only. */
+const LOCAL = (function(){
+'use strict';
+const VERSION = 1;
+let dbp = null, broken = false;
+// one store per database the page talks to (sites on the same github.io address share browser storage)
+const name = () => 'amp-offline:' + ((typeof window !== 'undefined' && window.AMP_CONFIG && window.AMP_CONFIG.url) || 'local');
+
+function open(){
+  if (dbp) return dbp;
+  dbp = new Promise(res => {
+    if (typeof indexedDB === 'undefined'){ broken = true; res(null); return; }
+    let req;
+    try { req = indexedDB.open(name(), VERSION); } catch (e){ broken = true; res(null); return; }
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains('docs')) db.createObjectStore('docs', {keyPath: 'key'}).createIndex('coll', 'coll');
+      if (!db.objectStoreNames.contains('outbox')) db.createObjectStore('outbox', {keyPath: 'key'}).createIndex('rig', 'rig');
+      if (!db.objectStoreNames.contains('kv')) db.createObjectStore('kv');
+    };
+    req.onsuccess = () => { const db = req.result; db.onversionchange = () => { try { db.close(); } catch (e){} dbp = null; }; res(db); };
+    req.onerror = () => { broken = true; res(null); };
+    req.onblocked = () => res(null);
+  });
+  return dbp;
+}
+/** Run fn(store(s)) in one transaction; resolves with what fn returns (an IDBRequest's result, or a value). */
+async function run(stores, mode, fn){
+  const db = await open(); if (!db) return null;
+  return new Promise(res => {
+    let t, out;
+    try { t = db.transaction(stores, mode); out = fn(Array.isArray(stores) ? stores.map(s => t.objectStore(s)) : t.objectStore(stores)); }
+    catch (e){ console.warn('local storage', e); res(null); return; }
+    t.oncomplete = () => res(out && typeof out === 'object' && 'result' in out && 'readyState' in out ? out.result : out);
+    t.onerror = t.onabort = () => { console.warn('local storage', t.error); res(null); };
+  });
+}
+const dkey = (coll, id) => coll + '\u0001' + id;
+
+/* ---- documents ---- */
+function putDocs(coll, rows){
+  if (!rows || !rows.length) return Promise.resolve(null);
+  return run('docs', 'readwrite', s => { for (const r of rows) s.put({key: dkey(coll, r.id), coll, id: r.id, data: r.data, rev: r.rev == null ? null : r.rev}); });
+}
+function delDocs(coll, ids){
+  if (!ids || !ids.length) return Promise.resolve(null);
+  return run('docs', 'readwrite', s => { for (const id of ids) s.delete(dkey(coll, id)); });
+}
+async function docsIn(coll){ const rows = await run('docs', 'readonly', s => s.index('coll').getAll(coll)); return (rows || []).map(r => ({id: r.id, data: r.data, rev: r.rev})); }
+async function getDoc(coll, id){ const r = await run('docs', 'readonly', s => s.get(dkey(coll, id))); return r ? {id: r.id, data: r.data, rev: r.rev} : null; }
+/** Forget a rig's parts, edits, original file and marks that belong to another workbook version. */
+async function pruneRig(rig, ver){
+  for (const c of ['parts', 'edits', 'src', 'marks']){
+    const coll = `rigs/${rig}/${c}`;
+    const old = (await docsIn(coll)).filter(r => !r.data || r.data.ver !== ver).map(r => r.id);
+    if (old.length) await delDocs(coll, old);
+  }
+}
+
+/* ---- changes not uploaded yet ---- */
+const obKey = (rig, ver, si, r, c) => `${rig}|${ver}|${si}:${r}:${c}`;
+function obPut(rec){ return run('outbox', 'readwrite', s => { s.put(rec); }); }
+/** Remove an uploaded change - only if it is still the same change (a newer one for the cell stays). */
+function obDel(key, at){
+  return run('outbox', 'readwrite', s => {
+    const g = s.get(key);
+    g.onsuccess = () => { const r = g.result; if (r && (at == null || r.at === at)) s.delete(key); };
+  });
+}
+async function obList(rig){ return (await run('outbox', 'readonly', s => s.index('rig').getAll(rig))) || []; }
+
+/* ---- small values ---- */
+async function kvGet(k){ const v = await run('kv', 'readonly', s => s.get(k)); return v === undefined ? null : v; }
+function kvSet(k, v){ return run('kv', 'readwrite', s => { s.put(v, k); }); }
+
+/** Ask the browser not to clear this site's data when space runs low (granted for installed apps). */
+async function persist(){ try { if (navigator.storage && navigator.storage.persist && !(await navigator.storage.persisted())) return await navigator.storage.persist(); return true; } catch (e){ return false; } }
+
+return {open, putDocs, delDocs, docsIn, getDoc, pruneRig, obKey, obPut, obDel, obList, kvGet, kvSet, persist, get available(){ return !broken; }};
 })();
 
 </script>
@@ -2355,10 +3129,13 @@ return {newVersion, toDocs, fromDocs, editDocId, BLOCK};
      db.collection(path)                      -> collection
        .doc(id).get() / .set(obj) / .update(obj) / .mergeUpsert(obj) / .delete()
        .where(field, '==' | '!=', value)      -> query (chainable)
-       .get()                                 -> {docs, size, empty, docChanges()}
+       .get()                                 -> {docs, size, empty, docChanges(), metadata.fromCache}
        .onSnapshot(next, error)               -> unsubscribe()   (polls; see POLL_MS)
    Reads go straight to the amp_docs table (read-only for everyone).
    Writes go through the PIN-checked functions created by supabase-setup.sql.
+   Offline: every document read is also kept on this device (LOCAL). Without a connection, reads
+   answer from that copy (metadata.fromCache = true) so the page still opens in the engine room;
+   writes fail with 'unavailable' and the page keeps them in its own outbox until the connection is back.
    Error codes match the old store: 'invalid_argument' (e.g. update of a missing
    document), 'not_granted' (wrong / missing PIN), 'unavailable' (no connection or
    timed out), plus 'locked' (too many wrong PINs were tried: saving pauses, then resumes). */
@@ -2367,7 +3144,8 @@ const SUPA = (function(){
 const POLL_MS = 6000;          // how often open pages look for other people's changes
 const PAGE = 1000;             // rows per read request (Supabase caps a response at 1000 rows)
 const ID_BATCH = 40;           // documents fetched per request when only some changed
-const READ_TIMEOUT = 20000, WRITE_TIMEOUT = 60000;   // a stalled connection counts as offline after this
+const READ_TIMEOUT = 15000, READ_TIMEOUT_OFFLINE = 6000, WRITE_TIMEOUT = 60000;   // a stalled connection counts as offline after this
+const L = typeof LOCAL !== 'undefined' ? LOCAL : null;
 
 class DbError extends Error { constructor(code, message){ super(message || code); this.name = 'DbError'; this.code = code; } }
 
@@ -2380,23 +3158,39 @@ function connect(cfg, auth){
 
   async function http(path, opts){
     opts = opts || {};
+    if (typeof navigator !== 'undefined' && navigator.onLine === false){ setOnline(false); throw new DbError('unavailable', 'This device is offline.'); }
     const ctl = typeof AbortController === 'function' ? new AbortController() : null;
-    const timer = ctl ? setTimeout(() => ctl.abort(), opts.method === 'POST' ? WRITE_TIMEOUT : READ_TIMEOUT) : null;
+    const ms = opts.method === 'POST' ? WRITE_TIMEOUT : online ? READ_TIMEOUT : READ_TIMEOUT_OFFLINE;
+    const timer = ctl ? setTimeout(() => ctl.abort(), ms) : null;
     try {
       let res;
       try {
         res = await fetch(base + path, {method: opts.method || 'GET', body: opts.body, cache: 'no-store', signal: ctl ? ctl.signal : undefined,
           headers: Object.assign({apikey: key, Accept: 'application/json'}, opts.headers || {})});
-      } catch (e){ throw new DbError('unavailable', 'No connection to the database. Check the network and try again.'); }
+      } catch (e){ setOnline(false); throw new DbError('unavailable', 'No connection to the database. Check the network and try again.'); }
       if (!res.ok){
         let body = null; try { body = await res.json(); } catch (e){}
         const msg = (body && (body.message || body.hint || body.error)) || ('HTTP ' + res.status);
         const code = (res.status >= 500 || res.status === 408 || res.status === 429) ? 'unavailable' : 'invalid_argument';
         throw new DbError(code, `Database error: ${msg}`);
       }
-      try { return await res.json(); }
-      catch (e){ throw new DbError('unavailable', 'The connection dropped while reading from the database.'); }
+      let out;
+      try { out = await res.json(); }
+      catch (e){ setOnline(false); throw new DbError('unavailable', 'The connection dropped while reading from the database.'); }
+      setOnline(true);
+      return out;
     } finally { if (timer) clearTimeout(timer); }
+  }
+
+  /* ---------- this device's copy ---------- */
+  let seen = null;                                   // collections read successfully at least once on this device
+  async function seenSet(){ if (!seen){ seen = new Set((L && await L.kvGet('seen')) || []); } return seen; }
+  async function markSeen(coll){ if (!L) return; const s = await seenSet(); if (!s.has(coll)){ s.add(coll); L.kvSet('seen', [...s]); } }
+  const matches = (data, filters) => filters.every(([field, op, value]) => { const v = data ? data[field] : undefined; const same = v != null && String(v) === String(value); return op === '==' ? same : !same; });
+  /** Documents of a collection from this device's copy; null if this device never read that collection. */
+  async function fromCopy(coll, filters){
+    if (!L || !(await seenSet()).has(coll)) return null;
+    return (await L.docsIn(coll)).filter(r => matches(r.data, filters));
   }
 
   /* ---------- reads ---------- */
@@ -2427,8 +3221,8 @@ function connect(cfg, auth){
     }
     return out;
   }
-  const docSnap = (id, data) => ({id, exists: data !== undefined, data: () => data, metadata: {hasPendingWrites: false, fromCache: false}});
-  const querySnap = (docs, changes) => ({docs, size: docs.length, empty: !docs.length, docChanges: () => changes || docs.map((d, i) => ({type: 'added', doc: d, oldIndex: -1, newIndex: i})), metadata: {hasPendingWrites: false, fromCache: false}});
+  const docSnap = (id, data, cached) => ({id, exists: data !== undefined, data: () => data, metadata: {hasPendingWrites: false, fromCache: !!cached}});
+  const querySnap = (docs, changes, cached) => ({docs, size: docs.length, empty: !docs.length, docChanges: () => changes || docs.map((d, i) => ({type: 'added', doc: d, oldIndex: -1, newIndex: i})), metadata: {hasPendingWrites: false, fromCache: !!cached}});
 
   /* ---------- writes (PIN-checked functions) ---------- */
   function statusError(s){
@@ -2449,58 +3243,68 @@ function connect(cfg, auth){
   async function checkPin(pin){ return http('rpc/amp_check_pin', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({p_pin: pin})}); }
 
   /* ---------- live updates: poll each open query, fetch only what changed ---------- */
-  function listen(coll, fstr, next, error){
-    const L = {coll, fstr, next, error, revs: new Map(), docs: new Map(), first: true, dead: false, busy: false, again: false, reported: false, pokeT: null};
-    listeners.add(L);
-    tick(L); startTimer();
-    return () => { L.dead = true; clearTimeout(L.pokeT); listeners.delete(L); };
+  function listen(coll, filters, fstr, next, error){
+    const L2 = {coll, filters, fstr, next, error, revs: new Map(), docs: new Map(), first: true, dead: false, busy: false, again: false, reported: false, pokeT: null, cached: false};
+    listeners.add(L2);
+    tick(L2); startTimer();
+    return () => { L2.dead = true; clearTimeout(L2.pokeT); listeners.delete(L2); };
   }
-  async function tick(L){
-    if (L.dead) return;
-    if (L.busy){ L.again = true; return; }
-    L.busy = true;
+  async function tick(Q){
+    if (Q.dead) return;
+    if (Q.busy){ Q.again = true; return; }
+    Q.busy = true;
     try {
-      const stamps = await select(L.coll, L.fstr, 'id,rev');
+      const stamps = await select(Q.coll, Q.fstr, 'id,rev');
       const live = new Set(stamps.map(s => s.id));
-      const changed = stamps.filter(s => L.revs.get(s.id) !== s.rev).map(s => s.id);
-      const removed = [...L.docs.keys()].filter(id => !live.has(id));
-      if (L.first || changed.length || removed.length){
+      const changed = stamps.filter(s => Q.revs.get(s.id) !== s.rev).map(s => s.id);
+      const removed = [...Q.docs.keys()].filter(id => !live.has(id));
+      if (Q.first || Q.cached || changed.length || removed.length){
         const changes = [];
-        const fresh = changed.length ? await selectIds(L.coll, changed) : [];
+        const fresh = changed.length ? await selectIds(Q.coll, changed) : [];
         for (const r of fresh){
           const snap = docSnap(r.id, r.data);
-          changes.push({type: L.docs.has(r.id) ? 'modified' : 'added', doc: snap, oldIndex: -1, newIndex: -1});
-          L.docs.set(r.id, snap); L.revs.set(r.id, r.rev);
+          changes.push({type: Q.docs.has(r.id) ? 'modified' : 'added', doc: snap, oldIndex: -1, newIndex: -1});
+          Q.docs.set(r.id, snap); Q.revs.set(r.id, r.rev);
         }
-        for (const id of removed){ changes.push({type: 'removed', doc: L.docs.get(id), oldIndex: -1, newIndex: -1}); L.docs.delete(id); L.revs.delete(id); }
-        const docs = stamps.map(s => L.docs.get(s.id)).filter(Boolean);
-        L.first = false;
-        if (!L.dead){ try { L.next(querySnap(docs, changes)); } catch (x){ console.error('snapshot handler', x); } }
+        for (const id of removed){ changes.push({type: 'removed', doc: Q.docs.get(id), oldIndex: -1, newIndex: -1}); Q.docs.delete(id); Q.revs.delete(id); }
+        if (L){ L.putDocs(Q.coll, fresh); if (removed.length) L.delDocs(Q.coll, removed); markSeen(Q.coll); }
+        const docs = stamps.map(s => Q.docs.get(s.id)).filter(Boolean);
+        Q.first = false; Q.cached = false;
+        if (!Q.dead){ try { Q.next(querySnap(docs, changes)); } catch (x){ console.error('snapshot handler', x); } }
       }
-      L.reported = false;
-      setOnline(true);
+      Q.reported = false;
     } catch (e){
-      if (e && e.code === 'unavailable') setOnline(false);
+      if (Q.first && e && e.code === 'unavailable'){
+        // no connection when the page opened: show this device's copy, then keep trying quietly
+        const rows = await fromCopy(Q.coll, Q.filters);
+        if (rows && !Q.dead){
+          for (const r of rows){ Q.docs.set(r.id, docSnap(r.id, r.data, true)); Q.revs.set(r.id, r.rev); }
+          Q.first = false; Q.cached = true;
+          try { Q.next(querySnap([...Q.docs.values()], null, true)); } catch (x){ console.error('snapshot handler', x); }
+          return;
+        }
+      }
       // only the first load reports an error; later hiccups retry quietly on the next poll
-      if (L.first && !L.reported && L.error){ L.reported = true; try { L.error(e); } catch (x){ console.warn(x); } }
-      else console.warn('poll', e);
+      if (Q.first && !Q.reported && Q.error){ Q.reported = true; try { Q.error(e); } catch (x){ console.warn(x); } }
+      else if (!(e && e.code === 'unavailable')) console.warn('poll', e);
     } finally {
-      L.busy = false;
-      if (L.again && !L.dead){ L.again = false; tick(L); }
+      Q.busy = false;
+      if (Q.again && !Q.dead){ Q.again = false; tick(Q); }
     }
   }
-  function tickAll(){ for (const L of listeners) tick(L); }
+  function tickAll(){ for (const Q of listeners) tick(Q); }
   function startTimer(){
     if (timer) return;
     timer = setInterval(() => { if (document.visibilityState === 'visible') tickAll(); }, POLL_MS);
   }
-  function poke(coll){ for (const L of listeners) if (L.coll === coll){ clearTimeout(L.pokeT); L.pokeT = setTimeout(() => tick(L), 250); } }
+  function poke(coll){ for (const Q of listeners) if (Q.coll === coll){ clearTimeout(Q.pokeT); Q.pokeT = setTimeout(() => tick(Q), 250); } }
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') tickAll(); });
   window.addEventListener('online', tickAll);
+  window.addEventListener('offline', () => setOnline(false));
   window.addEventListener('focus', tickAll);
 
   /* ---------- connection state (for the page's status line) ---------- */
-  let online = true; const onlineFns = new Set();
+  let online = typeof navigator === 'undefined' || navigator.onLine !== false; const onlineFns = new Set();
   function setOnline(v){ if (v === online) return; online = v; onlineFns.forEach(f => { try { f(v); } catch (e){} }); }
 
   /* ---------- references ---------- */
@@ -2509,7 +3313,17 @@ function connect(cfg, auth){
     if (typeof id !== 'string' || !id || id.includes('/')) throw new TypeError('Bad document id: ' + id);
     return {
       id, path: coll + '/' + id,
-      async get(){ const rows = await http(`amp_docs?select=id,data&coll=eq.${enc(coll)}&id=eq.${enc(id)}`); return docSnap(id, rows[0] ? rows[0].data : undefined); },
+      async get(){
+        try {
+          const rows = await http(`amp_docs?select=id,data,rev&coll=eq.${enc(coll)}&id=eq.${enc(id)}`);
+          if (L){ if (rows[0]) L.putDocs(coll, rows); else L.delDocs(coll, [id]); }
+          return docSnap(id, rows[0] ? rows[0].data : undefined);
+        } catch (e){
+          if (!(e && e.code === 'unavailable') || !L) throw e;
+          const r = await L.getDoc(coll, id); if (!r && !(await seenSet()).has(coll)) throw e;
+          return docSnap(id, r ? r.data : undefined, true);
+        }
+      },
       set(data){ return write('amp_set', coll, {p_id: id, p_data: data, p_by: auth.by() || null}); },
       update(data){ return write('amp_update', coll, {p_id: id, p_data: data, p_by: auth.by() || null}); },
       /** merge into the document, creating it if it does not exist (one atomic step) */
@@ -2521,8 +3335,18 @@ function connect(cfg, auth){
   function query(coll, filters){
     return {
       where(field, op, value){ return query(coll, filters.concat([[field, op, value]])); },
-      async get(){ const rows = await select(coll, filterString(filters), 'id,data'); return querySnap(rows.map(r => docSnap(r.id, r.data))); },
-      onSnapshot(next, error){ let f; try { f = filterString(filters); } catch (e){ if (error) setTimeout(() => error(e)); return () => {}; } return listen(coll, f, next, error); }
+      async get(){
+        let rows;
+        try { rows = await select(coll, filterString(filters), 'id,data,rev'); }
+        catch (e){
+          if (!(e && e.code === 'unavailable')) throw e;
+          const copy = await fromCopy(coll, filters); if (!copy) throw e;
+          return querySnap(copy.map(r => docSnap(r.id, r.data, true)), null, true);
+        }
+        if (L){ L.putDocs(coll, rows); markSeen(coll); }
+        return querySnap(rows.map(r => docSnap(r.id, r.data)));
+      },
+      onSnapshot(next, error){ let f; try { f = filterString(filters); } catch (e){ if (error) setTimeout(() => error(e)); return () => {}; } return listen(coll, filters, f, next, error); }
     };
   }
   function collection(path){ checkPath(path); return Object.assign(query(path, []), {path, doc: id => docRef(path, id)}); }
@@ -2551,7 +3375,8 @@ const UP_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 
 /* ============================== state ============================== */
 const APP = {db: null, user: null, downloads: null, me: {id: null, name: ''}, canWrite: false, canAdmin: false, isOwner: false,
-  rigs: new Map(), rigsReady: false, cur: null, route: {rig: null, tab: 'overview'}, names: new Map(), dev: false};
+  rigs: new Map(), rigsReady: false, cur: null, route: {rig: null, tab: 'overview'}, names: new Map(), dev: false,
+  guard: true};          // "Confirm each change": on every time the page opens
 
 /* ============================== values & formatting ============================== */
 const hasVal = v => v !== null && v !== undefined && v !== '';
@@ -2568,7 +3393,7 @@ function fmtValue(v, st){
 /* sheet wrapper: layout + access to live values through the rig's calculator */
 function makeSheet(X, stored, rt, idx){
   const sh = {X, idx, name: String(stored.name).trim(), stored, rt, colW: arr(stored.colW), rowH: stored.rowH || {}, hidC: new Set(arr(stored.hiddenCols)),
-    charts: arr(stored.charts), state: stored.state, merges: new Map(), covered: new Map(), mergeRefs: arr(stored.merges)};
+    charts: arr(stored.charts), state: stored.state, merges: new Map(), covered: new Map(), mergeRefs: arr(stored.merges), dv: arr(stored.dv)};
   for (const ref of sh.mergeRefs){
     const p = String(ref).split(':'); if (p.length < 2) continue;
     const a = cellRef(p[0]), b = cellRef(p[1]);
@@ -2619,8 +3444,8 @@ function rightOf(sh, r, c){ for (let cc = c + 1; cc <= c + 6; cc++){ const v = V
 /* ============================== status words ============================== */
 const ST_GOOD = /^(completed?|good|closed|done|acceptable\*?|yes|ok|pass(ed)?|✓|signed|work recorded)$/i;
 const ST_FAIR = /^(fair|in[ -]?progress|monitor(ing)?|on[ -]?hold|partial(ly)?( done)?|ongoing|attention|follow[ -]?up|minor)$/i;
-const ST_BAD = /^(unacceptable|open|action( required)?|faulty|not done|fail(ed)?|no access|✗|critical|major|overdue|not accessi?able|poor)$/i;
-const ST_PEND = /^(pending|po pending|not started|not inspected|to be updated|for review|on loan|tbc|n\/a)$/i;
+const ST_BAD = /^(unacceptable|open|action( required)?|faulty|not done|not completed|fail(ed)?|no access|✗|critical|major|overdue|not accessi?able|poor)$/i;
+const ST_PEND = /^(pending|po pending|not started|not inspected|to be updated|for review|on loan|tbc|n\/a|no condition rating|not rated)$/i;
 const statusCache = new Map();
 function statusOf(t){
   if (t == null) return null; const s = String(t).trim();
@@ -2786,7 +3611,7 @@ function renderTableShell(tm, id){
     <span class="count tnum" id="cnt-${id}"></span><span class="sp"></span>
     <button class="btn ghost" type="button" data-act="clear" hidden>Clear filters</button>
     <button class="btn" type="button" data-act="xrows" title="Download the rows you see (after search and filters) as .xlsx">${DL_ICON}Export rows (.xlsx)</button>
-  </div><div class="dt-scroll"><table class="dtab" data-si="${tm.sh.idx}"><thead><tr><th class="rn">Row</th>`;
+  </div><div class="dt-scroll"><table class="dtab${tm.insp ? ' insp' : ''}" data-si="${tm.sh.idx}"><thead><tr><th class="rn">Row</th>`;
   tm.heads.forEach((hd, j) => {
     const f = tm.filters[j];
     h += `<th><button class="hl" type="button" data-sort="${j}"><span>${esc(hd)}</span><span class="arw" id="ar-${id}-${j}"></span></button>`;
@@ -2823,8 +3648,11 @@ function paintTable(tm, id){
       if (X.editKeys.has(si + ':' + (r * K + c))) cls.push('ed');
       if (v instanceof FX.XErr) cls.push('err');
       const s = !isNum ? statusOf(t) : null;
+      const kind = tm.insp && !extra ? tm.insp.kind.get(c) : null;      // condition / date cells open a picker when tapped
+      let inner = s ? chip(t.trim(), s) : esc(t);
+      if (kind){ cls.push('tap', 'tap-' + kind); if (!t.trim() && APP.canWrite) inner = `<span class="tapme">${TAP_HINT[kind] || 'Set'}</span>`; }
       const c2 = cls.filter(Boolean).join(' ');
-      h += `<td data-r="${r}" data-c="${c}"${c2 ? ` class="${c2}"` : ''}>${s ? chip(t.trim(), s) : esc(t)}</td>`;
+      h += `<td data-r="${r}" data-c="${c}"${kind ? ` data-insp="${kind}"` : ''}${c2 ? ` class="${c2}"` : ''}>${inner}</td>`;
     });
     return h + '</tr>';
   };
@@ -3242,22 +4070,403 @@ const condLegend = () => [['Good', 'good'], ['Fair', 'fair'], ['Unacceptable', '
 function renderSheet(X, sh, host){
   extent(sh);
   const {blocks} = buildBlocks(sh);
+  const insp = inspModel(sh, blocks);
   const nCharts = sh.charts.length, nTables = blocks.filter(b => b.type === 'table').length;
   let h = `<div class="sheet-head"><h2>${esc(sh.name)}</h2><span class="dims">${sh.maxRow} rows · ${sh.visCols.length} columns${nCharts ? ` · ${nCharts} chart${nCharts > 1 ? 's' : ''}` : ''}${nTables ? ` · ${nTables} searchable table${nTables > 1 ? 's' : ''}` : ''}</span><span class="sp"></span>
     <button class="btn" type="button" data-xsheet>${DL_ICON}Export this sheet (.xlsx)</button></div><div class="stack">`;
+  if (insp) h += inspBar(X);
   const charts = [], tables = [];
   blocks.forEach(b => {
     if (b.type === 'grid') h += renderGrid(sh, b.rows);
     else if (b.type === 'charts'){ h += `<div class="charts">${b.charts.map(chartCard).join('')}</div>`; charts.push(...b.charts); }
-    else { const id = `t${sh.idx}_${tables.length}`; const tm = tableModel(sh, b.t); tables.push([tm, id]); h += renderTableShell(tm, id); }
+    else { const id = `t${sh.idx}_${tables.length}`; const tm = tableModel(sh, b.t); if (insp && b.t === insp.t) tm.insp = insp; tables.push([tm, id]); h += renderTableShell(tm, id); }
   });
   if (!blocks.length) h += `<div class="xwrap"><table class="xg" data-si="${sh.idx}"><tbody><tr><td data-r="1" data-c="1" style="min-width:120px">&nbsp;</td></tr></tbody></table></div><p class="muted">This sheet is empty. Select the cell above and type to start it.</p>`;
   h += '</div>';
   host.innerHTML = h;
+  if (insp) wireInspBar(host, X);
   host.querySelector('[data-xsheet]').addEventListener('click', () => exportSheets([sh], `${X.rig}_${safeFile(sh.name)}.xlsx`));
   tables.forEach(([tm, id]) => wireTable(tm, id));
   mountCharts(host, charts, X);
   markSelection();
+}
+
+/* ============================== inspection on a tablet (Equipment Breakdown) ============================== */
+const HDR = {
+  status: /^po\s*eq\.?\s*condition\s*status$|^(po\s*)?(eq(uipment)?\s*)?condition(\s*status)?$/i,
+  date: /^(po\s*)?(date\s*of\s*(po\s*)?inspection|inspection\s*date)$/i,
+  po: /^po\s*inspection\s*status$/i,
+  ymd: /^yard\s*maint(enance)?\.?\s*date$/i,
+  pm: /^yard\s*(pm\s*)?status$/i,
+  name: /^equipment(\s*name)?$/i,
+  sn: /^yard\s*s\.?\s*n\.?$/i,
+  cat: /^amp\s*category$/i,
+  remarks: /^remarks?$/i
+};
+const YMD_HEADER = 'Yard Maintenance Date';
+const CONDITIONS = [['Good', 'good'], ['Fair', 'fair'], ['Unacceptable', 'bad'], ['No condition rating', 'pending']];
+const DONE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+const normH = v => String(v == null ? '' : v).replace(/\s+/g, ' ').trim();
+/** The Equipment Breakdown table and where its inspection columns are (found by header text, so column moves are fine). */
+function inspModel(sh, blocks){
+  if (!/equipment\s*breakdown/i.test(sh.name)) return null;
+  for (const b of blocks){
+    if (b.type !== 'table') continue;
+    const t = b.t, cols = {};
+    for (let c = t.c1; c <= t.c2; c++){ const h = normH(V(sh, t.h, c)); if (!h) continue; for (const k in HDR) if (!(k in cols) && HDR[k].test(h)){ cols[k] = c; break; } }
+    if (!cols.status) continue;
+    const kind = new Map([[cols.status, 'status']]);
+    if (cols.date) kind.set(cols.date, 'date');
+    if (cols.ymd) kind.set(cols.ymd, 'ymd');
+    if (cols.po) kind.set(cols.po, 'po');
+    if (cols.pm) kind.set(cols.pm, 'pm');
+    return {t, cols, kind};
+  }
+  return null;
+}
+function itemInfo(sh, insp, r){
+  const g = k => insp.cols[k] ? normH(fmtValue(V(sh, r, insp.cols[k]), styleOf(sh, r, insp.cols[k]))) : '';
+  return {name: g('name') || `Row ${r}`, sn: g('sn'), cat: g('cat')};
+}
+const itemLine = i => `<p class="item"><b>${esc(i.name)}</b><span class="muted">${[i.sn ? 'Yard SN ' + i.sn : '', i.cat].filter(Boolean).map(esc).join(' · ')}</span></p>`;
+function todaySerial(){ const d = new Date(); return FX.dateToSerial(d.getFullYear(), d.getMonth(), d.getDate()); }
+const serialToIso = v => FX.serialToDate(v).toISOString().slice(0, 10);
+function isoToSerial(s){ const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || '')); return m ? FX.dateToSerial(+m[1], +m[2] - 1, +m[3]) : null; }
+const dateText = v => FX.fmtNum(v, 'dd-mmm-yyyy');
+const fmtWhen = t => new Date(t).toLocaleString('en-GB', {day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'});
+const fmtLong = t => new Date(t).toLocaleString('en-GB', {day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'});
+/** Put a value in a cell the way typing it would (a value equal to the workbook's own counts as "no change"). */
+function setCell(X, si, r, c, v){
+  const sh = X.sheets[si], key = si + ':' + (r * K + c), cell = sh.rt.cells.get(r * K + c), ex = X.edits.get(key);
+  let entry;
+  if (cell && cell.fi == null && sameVal(cell.v, v)) entry = {k: 'r'};
+  else if (!cell && v == null) entry = {k: 'r'};
+  else entry = {k: 'v', v: v == null ? null : v};
+  if (entry.k === 'r' && (!ex || ex.k === 'r')) return false;
+  if (ex && ex.k === 'v' && entry.k === 'v' && sameVal(ex.v, entry.v) && (ex.v == null) === (entry.v == null)) return false;
+  applyLocalEdit(X, si, r, c, entry);
+  return true;
+}
+/** A condition also dates the inspection and marks it Completed; Blank clears all three. */
+function applyCondition(X, sh, insp, r, choice){
+  const si = sh.idx;
+  setCell(X, si, r, insp.cols.status, choice || null);
+  if (insp.cols.date) setCell(X, si, r, insp.cols.date, choice ? todaySerial() : null);
+  if (insp.cols.po) setCell(X, si, r, insp.cols.po, choice ? 'Completed' : null);
+}
+const condChip = v => v ? chip(v, statusOf(v) || 'pending') : '<span class="chip blankchip">Blank</span>';
+function openConditionPicker(X, sh, insp, r){
+  if (!APP.canWrite){ toast('Tap Edit and enter the PIN to rate equipment.', 4000); return; }
+  const cur = normH(V(sh, r, insp.cols.status)), info = itemInfo(sh, insp, r), today = dateText(todaySerial());
+  const isCur = label => cur.toLowerCase() === label.toLowerCase();
+  const head = k => insp.cols[k] ? esc(normH(V(sh, insp.t.h, insp.cols[k]))) : null, hDate = head('date'), hPo = head('po');
+  const also = [hDate ? `<b>${hDate}</b> to today (${esc(today)})` : '', hPo ? `<b>${hPo}</b> to Completed` : ''].filter(Boolean);
+  const btn = ([label, s]) => `<button class="pick ${s}${isCur(label) ? ' cur' : ''}" type="button" data-pick="${esc(label)}"><i></i><span>${esc(label)}</span>${isCur(label) ? '<small>now</small>' : ''}</button>`;
+  const dlg = dialog(`<h3>PO condition</h3>${itemLine(info)}
+    <div class="picks">${CONDITIONS.map(btn).join('')}<button class="pick blank${cur ? '' : ' cur'}" type="button" data-pick=""><i></i><span>Blank</span>${cur ? '' : '<small>now</small>'}</button></div>
+    <p class="note">${also.length ? `A condition also sets ${also.join(' and ')}. Blank clears ${also.length === 2 ? 'all three' : 'both'}.` : 'Blank clears the condition.'}</p>
+    <div class="dlg-actions"><span class="sp"></span><button class="btn ghost" type="button" data-close>Cancel</button></div>`);
+  dlg.el.querySelectorAll('[data-pick]').forEach(b => b.addEventListener('click', () => {
+    const choice = b.dataset.pick;
+    const go = () => { dlg.close(); applyCondition(X, sh, insp, r, choice); toast(`${info.name}: ${choice || 'cleared'}`, 2500); };
+    if (!APP.guard) return go();
+    const also = choice ? [hDate ? `${hDate} → <b>${esc(today)}</b>` : '', hPo ? `${hPo} → <b>Completed</b>` : '']
+      : [hDate ? `${hDate} → <b>cleared</b>` : '', hPo ? `${hPo} → <b>cleared</b>` : ''];
+    dlg.body(`<h3>Confirm the change</h3>${itemLine(info)}
+      <div class="chg">${condChip(cur)}<span class="arrow">→</span>${condChip(choice)}</div>
+      <ul class="facts-list">${also.filter(Boolean).map(x => `<li>${x}</li>`).join('')}</ul>
+      <div class="dlg-actions"><button class="btn ghost" type="button" data-back>Back</button><span class="sp"></span><button class="btn ghost" type="button" data-close>Cancel</button><button class="btn primary lg" type="button" data-ok>Confirm</button></div>`);
+    dlg.el.querySelector('[data-ok]').addEventListener('click', go);
+    dlg.el.querySelector('[data-back]').addEventListener('click', () => openConditionPicker(X, sh, insp, r));
+  }));
+}
+const TAP_HINT = {status: 'Rate', date: 'Set date', ymd: 'Set date', po: 'Set', pm: 'Set'};
+const PICKER_ONLY = new Set(['status', 'po', 'pm']);
+function inSqref(sqref, r, c){
+  return String(sqref || '').trim().split(/\s+/).some(p => {
+    const [a, b] = p.split(':'), x = /^\$?([A-Za-z]+)\$?(\d+)$/.exec(a), y = /^\$?([A-Za-z]+)\$?(\d+)$/.exec(b || a);
+    if (!x || !y) return false;
+    const c1 = FX.colNum(x[1]), c2 = FX.colNum(y[1]);
+    return r >= Math.min(+x[2], +y[2]) && r <= Math.max(+x[2], +y[2]) && c >= Math.min(c1, c2) && c <= Math.max(c1, c2);
+  });
+}
+/** The words a status column offers: those of its own Excel drop-down list, else Completed / Not Completed. */
+function statusChoices(sh, r, c){
+  const items = [];
+  for (const d of sh.dv || []) if (inSqref(d.sqref, r, c)) for (const it of arr(d.items)) { const w = String(it).trim(); if (w && !items.some(x => x.toLowerCase() === w.toLowerCase())) items.push(w); }
+  if (!items.length){
+    items.push('Completed', 'Not Completed');
+    for (let rr = 1; rr <= (sh.maxRow || 0) && items.length < 6; rr++){ const v = V(sh, rr, c); if (typeof v !== 'string') continue; const w = v.trim(); if (w && w.length <= 24 && statusOf(w) && !items.some(x => x.toLowerCase() === w.toLowerCase())) items.push(w); }
+  }
+  const rank = w => { const i = ['completed', 'not completed', 'pending'].indexOf(w.toLowerCase()); return i < 0 ? 3 : i; };
+  return items.map((w, i) => [w, i]).sort((a, b) => rank(a[0]) - rank(b[0]) || a[1] - b[1]).map(x => x[0]);
+}
+/** PO inspection status and Yard PM status: tap a word (or Blank). A cell the workbook works out with a formula
+    (Yard PM Status reads the yard's log) takes the chosen word instead, until "Use the formula again". */
+function openStatusPicker(X, sh, insp, r, c, kind){
+  if (!APP.canWrite){ toast('Tap Edit and enter the PIN to change the status.', 4000); return; }
+  const si = sh.idx, cell = sh.rt.cells.get(r * K + c), ed = X.edits.get(si + ':' + (r * K + c));
+  const fromFormula = !!(cell && cell.fi != null), typed = !!(ed && ed.k !== 'r');
+  const cur = normH(fmtValue(V(sh, r, c), {})), info = itemInfo(sh, insp, r);
+  const label = normH(V(sh, insp.t.h, c)) || (kind === 'pm' ? 'Yard PM Status' : 'PO inspection status');
+  const isCur = w => cur.toLowerCase() === String(w).toLowerCase();
+  const btn = w => `<button class="pick ${statusOf(w) || 'pending'}${isCur(w) ? ' cur' : ''}" type="button" data-pick="${esc(w)}"><i></i><span>${esc(w)}</span>${isCur(w) ? '<small>now</small>' : ''}</button>`;
+  const note = !fromFormula ? '' : typed
+    ? 'Set by hand here. In the workbook this cell is worked out by a formula; <b>Use the formula again</b> brings it back.'
+    : 'Worked out by a formula in the workbook (it reads the yard’s records). Choosing a word puts it here instead, for this item only.';
+  const dlg = dialog(`<h3>${esc(label)}</h3>${itemLine(info)}
+    <div class="picks">${statusChoices(sh, r, c).map(btn).join('')}<button class="pick blank${cur ? '' : ' cur'}" type="button" data-pick=""><i></i><span>Blank</span>${cur ? '' : '<small>now</small>'}</button></div>
+    ${note ? `<p class="note">${note}</p>` : ''}
+    <div class="dlg-actions">${fromFormula && typed ? '<button class="btn ghost" type="button" data-formula>Use the formula again</button>' : ''}<span class="sp"></span><button class="btn ghost" type="button" data-close>Cancel</button></div>`);
+  const ask = (after, facts, go) => {
+    if (!APP.guard) return go();
+    dlg.body(`<h3>Confirm the change</h3>${itemLine(info)}
+      <p class="muted">${esc(label)}</p>
+      <div class="chg">${condChip(cur)}<span class="arrow">→</span>${after}</div>
+      ${facts ? `<ul class="facts-list"><li>${facts}</li></ul>` : ''}
+      <div class="dlg-actions"><button class="btn ghost" type="button" data-back>Back</button><span class="sp"></span><button class="btn ghost" type="button" data-close>Cancel</button><button class="btn primary lg" type="button" data-ok>Confirm</button></div>`);
+    dlg.el.querySelector('[data-ok]').addEventListener('click', go);
+    dlg.el.querySelector('[data-back]').addEventListener('click', () => openStatusPicker(X, sh, insp, r, c, kind));
+  };
+  const restore = () => { dlg.close(); applyLocalEdit(X, si, r, c, {k: 'r'}); toast(`${info.name}: ${label} worked out by the formula again`, 2500); };
+  const formulaWord = fromFormula ? normH(fmtValue(cell.v && typeof cell.v === 'object' ? FX.errOf(cell.v.e) : cell.v, {})) : null;   // what the formula gave in the workbook
+  dlg.el.querySelectorAll('[data-pick]').forEach(b => b.addEventListener('click', () => {
+    const choice = b.dataset.pick;
+    if (isCur(choice)){ dlg.close(); toast(`${info.name}: ${label} is already ${choice || 'blank'}`, 2500); return; }
+    if (typed && formulaWord != null && formulaWord.toLowerCase() === choice.toLowerCase()) return ask(`${condChip(choice)}<span class="muted">(formula)</span>`, 'The workbook’s formula comes back in this cell.', restore);
+    const go = () => { dlg.close(); setCell(X, si, r, c, choice || null); toast(`${info.name}: ${label} ${choice || 'cleared'}`, 2500); };
+    ask(condChip(choice), fromFormula && !typed ? 'The workbook’s formula in this cell is replaced by this word.' : '', go);
+  }));
+  const back = dlg.el.querySelector('[data-formula]');
+  if (back) back.addEventListener('click', () => ask('<span class="chip blankchip">Formula</span>', 'The cell shows what the workbook’s formula works out.', restore));
+}
+function openDateDialog(X, sh, insp, r, c){
+  if (!APP.canWrite){ toast('Tap Edit and enter the PIN to change dates.', 4000); return; }
+  const label = normH(V(sh, insp.t.h, c)) || 'Date', cur = V(sh, r, c), has = typeof cur === 'number' && cur > 0, info = itemInfo(sh, insp, r);
+  const dlg = dialog(`<h3>${esc(label)}</h3>${itemLine(info)}
+    <label class="fld">Date<input type="date" id="dtIn" class="plain date" value="${has ? serialToIso(cur) : serialToIso(todaySerial())}"></label>
+    <p class="note">${has ? `Now: <b>${esc(dateText(cur))}</b>` : 'Not set yet. Today is filled in; change it if needed.'}</p>
+    <div class="dlg-actions">${has ? '<button class="btn ghost" type="button" data-clear>Clear date</button>' : ''}<span class="sp"></span><button class="btn ghost" type="button" data-close>Cancel</button><button class="btn primary lg" type="button" data-save>Save</button></div>`);
+  const inp = $('#dtIn');
+  const save = () => { const v = isoToSerial(inp.value); if (v == null){ toast('Pick a date first.', 3000); return; } dlg.close(); setCell(X, sh.idx, r, c, v); toast(`${label}: ${dateText(v)}`, 2500); };
+  dlg.el.querySelector('[data-save]').addEventListener('click', save);
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); save(); } });
+  const clr = dlg.el.querySelector('[data-clear]'); if (clr) clr.addEventListener('click', () => { dlg.close(); setCell(X, sh.idx, r, c, null); toast(`${label} cleared`, 2500); });
+}
+function openInspCell(si, r, c, kind){
+  const X = APP.cur && APP.cur.X; if (!X || !X.sheets[si]) return;
+  const sh = X.sheets[si]; extent(sh);
+  const insp = inspModel(sh, buildBlocks(sh).blocks); if (!insp) return;
+  if (kind === 'status') openConditionPicker(X, sh, insp, r);
+  else if (kind === 'po' || kind === 'pm') openStatusPicker(X, sh, insp, r, c, kind);
+  else openDateDialog(X, sh, insp, r, c);
+}
+function inspBar(X){
+  const m = X.mark, n = changeRows(X, m).length;
+  const last = m ? `Last completed <b>${esc(fmtWhen(m.at))}</b>${m.by ? ` by ${esc(m.by)}` : ''}` : 'Not completed yet';
+  return `<section class="insp" aria-label="Inspection">
+    <div class="insp-row">
+      <button class="btn-done" type="button" data-done>${DONE_ICON}<span>Today's Work Completed</span></button>
+      <div class="insp-info"><div>${last}</div><div class="muted">${n ? `${N(n)} change${n === 1 ? '' : 's'} since ${m ? 'then' : 'the import'}` : `No changes since ${m ? 'then' : 'the import'}`}</div></div>
+      <span class="sp"></span>
+      <button class="guard${APP.guard ? ' on' : ''}" type="button" role="switch" aria-checked="${APP.guard}" data-guard><span class="trk"><i></i></span><span>Confirm each change</span></button>
+    </div>
+    ${APP.guard ? '' : '<div class="guard-off" role="status"><b>Quick mode:</b> taps change the condition and the statuses straight away, without asking. <button class="linkbtn" type="button" data-guardon>Turn confirmation back on</button></div>'}
+  </section>`;
+}
+function wireInspBar(host, X){
+  const done = host.querySelector('[data-done]'); if (done) done.addEventListener('click', () => completeDay(X));
+  const flip = on => { APP.guard = on; toast(on ? 'Confirmation is on: each change asks first.' : 'Quick mode: changes apply without asking.', 3000); if (APP.cur && APP.cur.X === X) renderView(APP.cur.tab); };
+  const g = host.querySelector('[data-guard]'); if (g) g.addEventListener('click', () => flip(!APP.guard));
+  const on = host.querySelector('[data-guardon]'); if (on) on.addEventListener('click', () => flip(true));
+}
+function onMark(X, snap){
+  const d = snap.docs.find(x => x.id === X.ver);
+  const m = d ? d.data() : null;
+  if (JSON.stringify(m && [m.at, m.by]) === JSON.stringify(X.mark && [X.mark.at, X.mark.by])) return;
+  X.mark = m;
+  if (APP.cur && APP.cur.X === X) refreshViews();
+}
+
+/* ============================== Today's Work Completed: upload, record, two Excel files ============================== */
+const stamp = t => { const d = new Date(t), p = n => String(n).padStart(2, '0'); return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}`; };
+function localSerial(t){ const d = new Date(t); return FX.dateToSerial(d.getFullYear(), d.getMonth(), d.getDate()) + (d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds()) / 86400; }
+/** Every cell changed online, as it stands now (kept with each completion: the next change list starts from it). */
+function editsSnapshot(X, edits){ const o = {}; for (const [key, e] of edits || X.edits) if (e.k !== 'r') o[key] = e.k === 'f' ? {k: 'f', f: e.f} : {k: 'v', v: e.v === undefined ? null : e.v}; return o; }
+const sameEntry = (a, b) => (!a && !b) || (!!a && !!b && a.k === b.k && (a.k === 'f' ? a.f === b.f : sameVal(a.v, b.v) && (a.v == null) === (b.v == null)));
+/** The cells whose value is different from the last completion (or from the import, the first time). */
+function changeRows(X, mark, edits){
+  edits = edits || X.edits;
+  const before = new Map(Object.entries((mark && mark.snap) || {}));
+  const keys = new Set(before.keys());
+  for (const [key, e] of edits) if (e.k !== 'r') keys.add(key);
+  const rows = [];
+  for (const key of keys){
+    const [si, k] = key.split(':').map(Number), sh = X.sheets[si]; if (!sh) continue;
+    const e = edits.get(key), now = e && e.k !== 'r' ? e : null, was = before.get(key) || null;
+    if (sameEntry(was, now)) continue;
+    rows.push({si, r: Math.floor(k / K), c: k % K, sh, was, now, by: e ? e.by : null, at: e ? e.at : null});
+  }
+  return rows.sort((a, b) => a.si - b.si || a.r - b.r || a.c - b.c);
+}
+function entryText(sh, r, c, entry){
+  const st = styleOf(sh, r, c), cell = sh.rt.cells.get(r * K + c);
+  if (!entry){ if (!cell) return ''; if (cell.fi != null) return '=' + FX.pretty(formulaText(sh, r, c)); return fmtValue(cell.v && typeof cell.v === 'object' ? FX.errOf(cell.v.e) : cell.v, st); }
+  return entry.k === 'f' ? '=' + FX.pretty(entry.f) : fmtValue(entry.v, st);
+}
+/** Column header, Yard SN and equipment name for a changed cell (when it sits in a list with those columns). */
+function rowLabels(row, cache){
+  const sh = row.sh;
+  if (!cache.has(sh.idx)){ extent(sh); cache.set(sh.idx, buildBlocks(sh).blocks.filter(b => b.type === 'table').map(b => b.t)); }
+  const t = cache.get(sh.idx).find(x => row.r > x.h && row.r <= x.r2 + 1 && row.c >= x.c1 && row.c <= x.c2);
+  if (!t) return {field: addr(row.r, row.c), sn: '', name: ''};
+  const find = re => { for (let c = t.c1; c <= t.c2; c++) if (re.test(normH(V(sh, t.h, c)))) return c; return null; };
+  const cs = find(HDR.sn), cn = find(HDR.name) || find(/equipment/i);
+  return {field: normH(fmtValue(V(sh, t.h, row.c), {})) || addr(row.r, row.c), sn: cs ? normH(fmtValue(V(sh, row.r, cs), styleOf(sh, row.r, cs))) : '', name: cn ? normH(fmtValue(V(sh, row.r, cn), {})) : ''};
+}
+function changeSpec(X, rows, mark, at, by){
+  const cells = [], put = (r, c, v, st) => cells.push([r, c, v, st || null]);
+  const lab = {fc: '5B6472'}, bold = {b: 1}, base = {bd: 'blrt', bc: 'D9DEE5', va: 'top'};
+  put(1, 1, `${X.rig} – changes for double-check`, {b: 1, sz: 15, fc: '1E2761'});
+  put(2, 1, 'From', lab); put(2, 2, mark ? `${fmtLong(mark.at)} (last completion${mark.by ? ' by ' + mark.by : ''})` : `the import of ${X.doc.file || 'the workbook'}${X.doc.importedAt ? ' on ' + fmtLong(X.doc.importedAt) : ''}`, bold);
+  put(3, 1, 'To', lab); put(3, 2, `${fmtLong(at)}${by ? ' (completed by ' + by + ')' : ' (copy from this device, not recorded)'}`, bold);
+  put(4, 1, 'Changes', lab); put(4, 2, rows.length, Object.assign({ha: 'left'}, bold));
+  const R0 = 6;
+  ['#', 'Sheet', 'Cell', 'Yard SN', 'Equipment', 'Field', 'Before', 'After', 'Changed by', 'Changed at'].forEach((h, j) => put(R0, j + 1, h, HEAD));
+  const cache = new Map();
+  const tone = v => { const s = statusOf(String(v).replace(/ \(formula\)$/, '')); return Object.assign({}, base, s ? XST[s] : {}, String(v).length > 40 ? {wr: 1} : {}); };
+  // a word chosen over a formula (Yard PM Status): its other side reads as the formula's value, not the formula's text
+  const formulaSide = (sh, r, c) => { const cell = sh.rt.cells.get(r * K + c); if (!cell || cell.fi == null) return null; const v = cell.v && typeof cell.v === 'object' ? FX.errOf(cell.v.e) : cell.v; return v == null || v === '' ? null : `${fmtValue(v, styleOf(sh, r, c))} (formula)`; };
+  rows.forEach((row, i) => {
+    const r = R0 + 1 + i, lb = rowLabels(row, cache);
+    let b = entryText(row.sh, row.r, row.c, row.was), a = entryText(row.sh, row.r, row.c, row.now);
+    if (!row.was && row.now && row.now.k === 'v') b = formulaSide(row.sh, row.r, row.c) || b;
+    if (!row.now && row.was && row.was.k === 'v') a = formulaSide(row.sh, row.r, row.c) || a;
+    put(r, 1, i + 1, base); put(r, 2, row.sh.name, base); put(r, 3, addr(row.r, row.c), base); put(r, 4, lb.sn, base);
+    put(r, 5, lb.name, Object.assign({wr: 1}, base)); put(r, 6, lb.field, Object.assign({wr: 1}, base));
+    put(r, 7, b, tone(b)); put(r, 8, a, tone(a)); put(r, 9, row.by || '', base); put(r, 10, row.at ? localSerial(row.at) : null, Object.assign({nf: 'dd-mmm-yyyy hh:mm', ha: 'left'}, base));
+  });
+  if (!rows.length) put(R0 + 1, 1, 'No changes since the last completion.', {i: 1, fc: '8892A0'});
+  return {name: 'Changes', cells, colW: [10, 20, 7, 9, 38, 24, 20, 20, 14, 18], freeze: {x: 0, y: R0}, autoFilter: rows.length ? `A${R0}:J${R0 + rows.length}` : null, rowH: {[R0]: 22}};
+}
+/** The original .xlsx of this rig (kept on the device once fetched, so it is there offline too). */
+async function srcBytes(X){
+  if (X.srcBytes) return X.srcBytes;
+  if (!X.doc || !X.doc.src) return null;
+  const coll = `rigs/${X.rig}/src`;
+  try {   // the file never changes within a version: this device's copy is used when it has one
+    if (LOCAL.available){ const b = STORE.srcFromDocs((await LOCAL.docsIn(coll)).map(r => r.data), X.ver); if (b) return (X.srcBytes = b); }
+    const snap = await APP.db.collection(coll).where('ver', '==', X.ver).get();
+    const b = STORE.srcFromDocs(snap.docs.map(d => d.data()), X.ver); if (b) X.srcBytes = b; return b;
+  } catch (e){ console.warn('original workbook', e); return null; }
+}
+function patchJob(X, edits){
+  const writes = [], newXfs = [], dateCols = [], fixes = (X.doc && X.doc.fixes) || [];
+  for (const f of fixes){
+    if (f.t === 'trim') writes.push({si: f.si, r: f.r, c: f.c, hasValue: true, v: f.to});
+    else if (f.t === 'col'){ writes.push({si: f.si, r: f.r, c: f.c, hasValue: true, v: f.header, s: f.hs, width: f.width}); for (const [r, s] of f.styles || []) writes.push({si: f.si, r, c: f.c, s}); }
+    else if (f.t === 'colfmt') for (const [r, s] of f.styles || []) writes.push({si: f.si, r, c: f.c, s});
+    else if (f.t === 'datefmt') dateCols.push({si: f.si, c: f.c, r1: f.r1, r2: f.r2, nf: f.nf});
+    else if (f.t === 'xf') newXfs.push({nf: f.nf});
+  }
+  for (const e of (edits || X.edits).values()) if (e.k !== 'r') writes.push({si: e.si, r: e.r, c: e.c, hasValue: e.k === 'v', v: e.k === 'v' ? e.v : null, f: e.k === 'f' ? e.f : null});
+  return {writes, newXfs, dateCols, tables: fixes.filter(f => f.t === 'table').map(f => ({name: f.name, ref: f.ref, col: f.col, rename: f.rename || null})),
+    value: (si, r, c) => X.calc.value(si, r, c),
+    cached: (si, r, c) => { const s = X.rt.sheets[si], cell = s && s.cells.get(r * K + c); return cell ? (cell.v === undefined ? null : cell.v) : undefined; }};
+}
+/** The latest workbook: the original file with every change written in (formulas kept), else a values-only copy. */
+async function buildWorkbook(X, at, edits){
+  const bytes = await srcBytes(X);
+  if (bytes){
+    const res = await XLSXPATCH.build(bytes, patchJob(X, edits));
+    if (res.warnings.length) console.warn('export', res.warnings);
+    return {blob: res.blob, name: `${X.rig}_AMP_Workbook_${stamp(at)}.xlsx`, kept: true, warnings: res.warnings};
+  }
+  const specs = X.sheets.filter(s => !s.state || s.state === 'visible').map(sheetSpec); specs.unshift(summarySpec(X));
+  return {blob: await XLSXWRITE.build(specs, `${X.rig} AMP Report`), name: `${X.rig}_AMP_Report_${stamp(at)}.xlsx`, kept: false, warnings: []};
+}
+async function buildFiles(X, rows, mark, at, by, edits){
+  const wb = await buildWorkbook(X, at, edits);
+  return [wb, {blob: await XLSXWRITE.build([changeSpec(X, rows, mark, at, by)], `${X.rig} changes`), name: `${X.rig}_Changes_${stamp(at)}.xlsx`}];
+}
+const warnHtml = w => w && w.length ? `<p class="warn">Note about the workbook: ${w.slice(0, 3).map(esc).join('; ')}${w.length > 3 ? ` (and ${w.length - 3} more)` : ''}.</p>` : '';
+function exportWorkbook(){
+  const X = APP.cur && APP.cur.X; if (!X) return;
+  runExport('the workbook', async () => {
+    const wb = await buildWorkbook(X, Date.now()); await saveFile(wb.blob, wb.name);
+    if (!wb.kept) toast('Saved as values only: this rig was added before exports could keep formulas. Use Update from Excel once to switch it on.', 8000);
+    else if (wb.warnings.length) toast(`Saved. Note: ${wb.warnings[0]}${wb.warnings.length > 1 ? ` (and ${wb.warnings.length - 1} more)` : ''}.`, 9000);
+  });
+}
+let completing = false;
+async function completeDay(X){
+  if (completing) return;
+  if (!APP.canWrite){ openEditDialog(); toast('Enter your name and the PIN, then press Today\'s Work Completed again.', 5000); return; }
+  completing = true;
+  const dlg = dialog(`<h3>Today's Work Completed</h3><p class="muted" id="cdStep">Checking the connection…</p><div class="spinner"></div>`);
+  const step = s => { const el = $('#cdStep'); if (el) el.textContent = s; };
+  try {
+    let probe = null; try { probe = await APP.db.collection('rigs').doc(X.rig).get(); } catch (e){ /* offline */ }
+    if (!probe || probe.metadata.fromCache){ offlineFinish(dlg, X, 'offline'); return; }
+    if (!probe.exists || probe.data().ver !== X.ver){ dlg.body(`<h3>Workbook was replaced</h3><p>${esc(X.rig)} was updated from a newer workbook a moment ago. The page loads it now; press Today's Work Completed again afterwards.</p><div class="dlg-actions"><span class="sp"></span><button class="btn primary" data-close>OK</button></div>`); return; }
+    step('Uploading this tablet\'s changes…');
+    if (!(await SYNC.flush(30000))){
+      if (SYNC.paused) dlg.body(`<h3>Changes not uploaded</h3><p>The edit PIN is not accepted any more. Tap <b>Edit</b>, enter the current PIN, then press Today's Work Completed again. Nothing is lost.</p><div class="dlg-actions"><span class="sp"></span><button class="btn primary" data-close>OK</button></div>`);
+      else if (SYNC.lost) dlg.body(`<h3>Changes not uploaded</h3><p>The database refused some changes. They are kept on this device. Reload the page (it tries them again), then press Today's Work Completed again.</p><div class="dlg-actions"><span class="sp"></span><button class="btn primary" data-close>OK</button></div>`);
+      else offlineFinish(dlg, X, APP.db.isOnline() ? 'stuck' : 'offline');
+      return;
+    }
+    step('Collecting everyone\'s changes…');
+    let mark;
+    try { await refreshEdits(X); const m = await APP.db.collection(`rigs/${X.rig}/marks`).doc(X.ver).get(); if (m.metadata.fromCache) throw Object.assign(new Error('offline'), {code: 'unavailable'}); mark = m.exists ? m.data() : null; }
+    catch (e){ if (e && e.code === 'unavailable'){ offlineFinish(dlg, X, 'offline'); return; } throw e; }
+    X.hold = true;                                    // from here the files and the record use one fixed state
+    X.calc.setToday(new Date()); X.calc.recalc();
+    const edits = new Map(X.edits), at = Date.now(), by = AUTH.name || null, rows = changeRows(X, mark, edits);
+    step('Writing the two Excel files…');
+    const files = await buildFiles(X, rows, mark, at, by, edits);
+    step('Recording the completion…');
+    const rec = {ver: X.ver, at, by, snap: editsSnapshot(X, edits), log: ((mark && mark.log) || []).slice(-49).concat([{at, by, n: rows.length}])};
+    let recErr = null;
+    try { await APP.db.collection(`rigs/${X.rig}/marks`).doc(X.ver).set(rec); X.mark = rec; }
+    catch (e){ console.warn('completion', e); recErr = e; }
+    showFinished(dlg, files, rows, mark, recErr);
+    for (const f of files){ await saveFile(f.blob, f.name); await sleep(800); }
+  } catch (e){
+    console.error(e);
+    dlg.body(`<h3>Could not finish</h3><p class="muted">${esc(e && e.message || e)}</p><p class="note">Nothing was lost: every change stays saved. Try again in a moment.</p><div class="dlg-actions"><span class="sp"></span><button class="btn" data-close>Close</button></div>`);
+  } finally {
+    completing = false;
+    if (X.hold){ X.hold = false; const s = X.heldSnap; X.heldSnap = null; if (s) onEdits(X, s); }
+    if (APP.cur && APP.cur.X === X) refreshViews();
+  }
+}
+function showFinished(dlg, files, rows, mark, recErr){
+  const why = !recErr ? '' : recErr.code === 'not_granted' ? 'the edit PIN was not accepted (tap Edit and enter the current PIN)' : recErr.code === 'unavailable' ? 'the connection dropped' : (recErr.message || 'of an error');
+  dlg.body(`<h3>${recErr ? 'Files ready' : 'Day completed'}</h3>
+    <ul class="facts-list"><li><b>${N(rows.length)}</b> change${rows.length === 1 ? '' : 's'} since ${mark ? esc(fmtLong(mark.at)) : 'the import'}</li>
+      <li>Workbook: <b>${esc(files[0].name)}</b> ${files[0].kept ? '(all formulas kept)' : '(values only)'}</li>
+      <li>Change list: <b>${esc(files[1].name)}</b></li></ul>
+    ${recErr ? `<p class="warn">The completion could not be recorded because ${esc(why)}. The files are complete; press Today's Work Completed again so the next change list starts from here.</p>` : ''}
+    ${warnHtml(files[0].warnings)}
+    <p class="note">Both files download by themselves. If the browser held one back, download it here.</p>
+    <div class="dlg-actions"><button class="btn" type="button" data-f="0">${DL_ICON}Workbook</button><button class="btn" type="button" data-f="1">${DL_ICON}Change list</button><span class="sp"></span><button class="btn primary" type="button" data-close>Done</button></div>`);
+  dlg.el.querySelectorAll('[data-f]').forEach(b => b.addEventListener('click', () => saveFile(files[+b.dataset.f].blob, files[+b.dataset.f].name)));
+}
+function offlineFinish(dlg, X, why){
+  const n = X.pending.size, its = n === 1 ? 'itself' : 'themselves';
+  const head = why === 'stuck' ? 'Still uploading' : 'No connection';
+  const body = why === 'stuck'
+    ? `${n ? `<b>${N(n)}</b> change${n === 1 ? ' has' : 's have'} not reached the database yet (the connection is slow or unstable). ${n === 1 ? 'It is' : 'They are'} kept on this tablet and will upload by ${its}.` : 'The upload has not finished yet.'} Press <b>Today's Work Completed</b> again in a minute.`
+    : `${n ? `<b>${N(n)}</b> change${n === 1 ? ' is' : 's are'} saved on this tablet and will upload by ${its} when the connection is back.` : 'Everything is saved on this tablet.'} To finish the day, press <b>Today's Work Completed</b> again when you are online (for example on deck).`;
+  dlg.body(`<h3>${head}</h3><p>${body}</p>
+    <p class="note">You can still download both Excel files from this tablet's copy now. That does not record the completion.</p>
+    <div class="dlg-actions"><button class="btn" type="button" data-local>${DL_ICON}Download from this tablet</button><span class="sp"></span><button class="btn primary" type="button" data-close>OK</button></div>`);
+  dlg.el.querySelector('[data-local]').addEventListener('click', () => runExport('the files', async () => {
+    const at = Date.now(), edits = new Map(X.edits), files = await buildFiles(X, changeRows(X, X.mark, edits), X.mark, at, null, edits);
+    for (const f of files){ await saveFile(f.blob, f.name); await sleep(800); }
+    if (files[0].warnings && files[0].warnings.length) toast(`Note about the workbook: ${files[0].warnings[0]}`, 9000);
+  }));
 }
 
 /* ============================== changes (edit log) ============================== */
@@ -3336,9 +4545,13 @@ function updateFormulaBar(){
   else if (owner){ text = inputText(V(sh, r, c), st); msg = `Result of the formula in ${addr(owner.r, owner.c)}. Edit that cell to change it.`; }
   else text = inputText(cell ? cell.v : null, st);
   inp.value = text; inp.dataset.orig = text; inp.dataset.cell = `${sh.idx}:${r}:${c}`;
-  inp.readOnly = !APP.canWrite || !!owner;
+  // the PO condition is changed with the picker only (so it is confirmed, and dates the inspection)
+  const view = activeView(), td = view && view.querySelector(`table[data-si="${sh.idx}"] td[data-r="${r}"][data-c="${c}"]`);
+  const pickerOnly = !!(td && PICKER_ONLY.has(td.dataset.insp));
+  inp.readOnly = !APP.canWrite || !!owner || pickerOnly;
+  if (pickerOnly && APP.canWrite) msg = td.dataset.insp === 'status' ? 'Tap the cell to choose the condition (it also dates the inspection).' : 'Tap the cell to choose the status.';
   note.textContent = msg || (APP.canWrite ? '' : 'View only');
-  rev.hidden = !(e && e.k !== 'r') || !APP.canWrite;
+  rev.hidden = !(e && e.k !== 'r') || !APP.canWrite || pickerOnly;
   // suggestions: the values already used in this column (status lists, names)
   const dl = $('#fbList'); const seen = new Set();
   if (!owner && !(cell && cell.fi != null)){
@@ -3401,8 +4614,10 @@ function commitInput(){
 }
 function applyLocalEdit(X, si, r, c, entry){
   if (!APP.canWrite){ toast('You can view this report but not change it. Tap Edit and enter the PIN to make changes.', 5000); return; }
-  const e = {si, r, c, k: entry.k, v: entry.k === 'v' ? (entry.v === undefined ? null : entry.v) : null, f: entry.k === 'f' ? entry.f : null, by: APP.me.id || null, at: Date.now()};
-  const key = si + ':' + (r * K + c);
+  const key = si + ':' + (r * K + c), srv = X.server && X.server.get(key);
+  // base: the database's version of this cell when the change was made, so a later upload can tell
+  // "nobody else touched it" (this change stands) from "someone else changed it meanwhile" (a conflict)
+  const e = {si, r, c, k: entry.k, v: entry.k === 'v' ? (entry.v === undefined ? null : entry.v) : null, f: entry.k === 'f' ? entry.f : null, by: APP.me.id || null, at: Date.now(), base: srv ? srv.at || 0 : 0};
   X.edits.set(key, e); X.pending.set(key, e);
   pushEditsToCalc(X); recalcSoon(X, 0);
   SYNC.write(X, e);
@@ -3429,7 +4644,11 @@ function moveSel(dr, dc){
 }
 document.addEventListener('click', e => {
   const td = e.target.closest && e.target.closest('table.xg td[data-c], table.dtab td[data-c]');
-  if (td){ const t = td.closest('table'); selectCell(+t.dataset.si, +td.dataset.r, +td.dataset.c, false); return; }
+  if (td){
+    const t = td.closest('table'); selectCell(+t.dataset.si, +td.dataset.r, +td.dataset.c, false);
+    if (td.dataset.insp) openInspCell(+t.dataset.si, +td.dataset.r, +td.dataset.c, td.dataset.insp);
+    return;
+  }
   const go = e.target.closest && e.target.closest('[data-goto]');
   if (go){ const [si, r, c] = go.dataset.goto.split(':').map(Number); location.hash = `${APP.cur.rig}~s${si}`; setTimeout(() => selectCell(si, r, c, false), 60); return; }
   const un = e.target.closest && e.target.closest('[data-undo]');
@@ -3437,9 +4656,10 @@ document.addEventListener('click', e => {
 });
 document.addEventListener('dblclick', e => {
   const td = e.target.closest && e.target.closest('table.xg td[data-c], table.dtab td[data-c]');
-  if (td){ const t = td.closest('table'); selectCell(+t.dataset.si, +td.dataset.r, +td.dataset.c, true); }
+  if (td && !td.dataset.insp){ const t = td.closest('table'); selectCell(+t.dataset.si, +td.dataset.r, +td.dataset.c, true); }
 });
 document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !$('#dlg').hidden){ if ($('#dlgBox [data-close]')){ e.preventDefault(); $('#dlg').hidden = true; $('#dlgBox').innerHTML = ''; dialogClosed(); } return; }
   const inp = $('#fbInput'); if (!inp) return;
   if (e.target === inp){
     if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); if (commitInput()){ inp.blur(); moveSel(1, 0); } }
@@ -3453,65 +4673,202 @@ document.addEventListener('keydown', e => {
   if ($('.dlg-back:not([hidden])')) return;
   const map = {ArrowDown: [1, 0], ArrowUp: [-1, 0], ArrowRight: [0, 1], ArrowLeft: [0, -1]};
   if (map[e.key]){ e.preventDefault(); moveSel(...map[e.key]); return; }
-  if (e.key === 'Enter' || e.key === 'F2'){ e.preventDefault(); selectCell(SEL.si, SEL.r, SEL.c, true); return; }
+  if (e.key === 'Enter' || e.key === 'F2'){
+    e.preventDefault();
+    const view = activeView(), td = view && view.querySelector(`table[data-si="${SEL.si}"] td[data-r="${SEL.r}"][data-c="${SEL.c}"]`);
+    if (td && td.dataset.insp) openInspCell(SEL.si, SEL.r, SEL.c, td.dataset.insp); else selectCell(SEL.si, SEL.r, SEL.c, true);
+    return;
+  }
   if ((e.key === 'Delete' || e.key === 'Backspace') && !inp.readOnly){ e.preventDefault(); inp.value = ''; commitInput(); return; }
   if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey && !inp.readOnly){ e.preventDefault(); inp.value = e.key; inp.focus(); }
 });
 
 /* ============================== sync with the shared database ============================== */
+/* Every change is also written to this device's outbox (LOCAL) before it is sent, so nothing is lost if the
+   connection is down (engine room), the page is reloaded or the tablet restarts. Without a connection the
+   queue simply waits and tries again; when the connection is back it first reads what reached the database
+   meanwhile, so an older change from this device never overwrites a newer one from someone else. */
+const obKeyOf = (X, si, r, c) => LOCAL.obKey(X.rig, X.ver, si, r, c);
 const SYNC = (function(){
-  const queues = new Map();     // doc id -> {busy, patch}
-  let inflight = 0, failed = 0, lost = 0;
+  const queues = new Map();     // doc id -> {busy, patch, stale}
+  let inflight = 0, failed = 0, lost = 0, paused = false, waiters = [];
+  const isOnline = () => !APP.db || !APP.db.isOnline || APP.db.isOnline();
+  /** Wait ms - or less, if wake() is called (connection back, PIN entered, "completed" pressed). */
+  function waitWake(ms){ return new Promise(res => { const done = () => { clearTimeout(t); waiters = waiters.filter(f => f !== done); res(); }; const t = setTimeout(done, ms); waiters.push(done); }); }
+  function wake(){ const w = waiters; waiters = []; w.forEach(f => f()); }
   function status(){
     const el = $('#sync'); if (!el) return;
-    const offline = APP.db && APP.db.isOnline && !APP.db.isOnline();
-    const s = offline ? ['Offline – reconnecting…', 'bad'] : lost ? ['Some changes were not saved – reload', 'bad'] : !APP.canWrite ? ['View only', 'ro'] : failed ? ['Not saved – retrying', 'bad'] : inflight ? ['Saving…', 'busy'] : ['Live · all changes saved', 'ok'];
+    const X = APP.cur && APP.cur.X, n = X ? X.pending.size : 0, nTxt = `${N(n)} change${n === 1 ? '' : 's'}`;
+    const s = paused ? [`Not uploaded: ${n ? nTxt + ' waiting' : 'waiting'} – tap Edit and enter the PIN`, 'bad']
+      : !isOnline() ? (n ? (LOCAL.available ? [`Offline · ${nTxt} saved on this device`, 'off'] : [`Offline · ${nTxt} waiting – keep this page open`, 'bad']) : ['Offline · showing this device\'s copy', 'off'])
+      : lost ? ['Some changes were not saved – reload', 'bad'] : !APP.canWrite ? ['View only', 'ro'] : failed ? ['Not saved – retrying', 'bad']
+      : inflight || n ? ['Saving…', 'busy'] : ['Live · all changes saved', 'ok'];
     el.textContent = s[0]; el.className = 'sync ' + s[1];
+    el.title = s[1] === 'off' ? 'No connection. Changes stay on this device and upload by themselves when the connection is back.' : '';
   }
   async function writeDoc(X, id, si, b, patch){
     // one atomic step: creates the block's document if needed, otherwise merges these cells into it
     await APP.db.collection(`rigs/${X.rig}/edits`).doc(id).mergeUpsert({ver: X.ver, i: si, b, cells: patch});
     X.editDocs.add(id);
   }
-  function write(X, e){
+  function write(X, e, restoring){
     const id = STORE.editDocId(X.ver, e.si, e.r), b = Math.floor(e.r / STORE.BLOCK);
     const key = `r${e.r}c${e.c}`, entry = {k: e.k, v: e.v, f: e.f, by: e.by, at: e.at};
-    let q = queues.get(id); if (!q){ q = {busy: false, patch: {}}; queues.set(id, q); }
+    if (!restoring) LOCAL.obPut({key: obKeyOf(X, e.si, e.r, e.c), rig: X.rig, ver: X.ver, si: e.si, r: e.r, c: e.c, k: e.k, v: e.v, f: e.f, by: e.by, at: e.at, base: e.base || 0});
+    let q = queues.get(id); if (!q){ q = {busy: false, patch: {}, stale: false, X}; queues.set(id, q); }
+    q.X = X;                      // a rig that was closed and opened again is a new object: the queue follows it
+    if (restoring) q.stale = true;
     q.patch[key] = entry;
-    run(X, id, e.si, b, q);
+    run(id, e.si, b, q);
   }
-  async function run(X, id, si, b, q){
-    if (q.busy) return; q.busy = true;
-    while (Object.keys(q.patch).length){
-      const patch = q.patch; q.patch = {};
-      inflight++; status();
-      let tries = 0, counted = false, pausedNoted = false;
-      for (;;){
-        try { await writeDoc(X, id, si, b, patch); break; }
-        catch (err){
-          const code = err && err.code;
-          if (code === 'not_granted'){ q.patch = {}; lockEditing(X, (err && err.message) || 'The edit PIN was not accepted.'); break; }
-          if (code === 'invalid_argument'){ undoCells(X, si, patch); toast(`A change could not be saved and was undone. ${(err && err.message) || ''}`, 8000); break; }
-          if (!counted){ failed++; counted = true; }
-          status();
-          if (code === 'locked'){   // someone tried wrong PINs: keep the change and try again every minute
-            if (!pausedNoted){ pausedNoted = true; toast(`${err.message} Your changes are kept and will save automatically.`, 9000); }
-            await sleep(60000); continue;
-          }
-          tries++;
-          await sleep(Math.min(15000, 1000 * Math.pow(2, tries)) + Math.random() * 500);
-          if (tries > 8){ lost++; toast('Could not save a change after several tries. Check your connection and reload.', 8000); break; }
-        }
-      }
-      if (counted) failed--;
-      inflight--; status();
+  /** Leave out cells that are no longer this device's latest word (something newer reached the database). */
+  function dropStale(X, si, patch){
+    for (const ck of Object.keys(patch)){
+      const m = /^r(\d+)c(\d+)$/.exec(ck), r = +m[1], c = +m[2], p = X.pending.get(si + ':' + (r * K + c));
+      if (!p || p.at !== patch[ck].at){ LOCAL.obDel(obKeyOf(X, si, r, c), patch[ck].at); delete patch[ck]; }
     }
-    q.busy = false;
   }
+  const delSent = (X, si, patch) => { for (const [ck, en] of Object.entries(patch)){ const m = /^r(\d+)c(\d+)$/.exec(ck); LOCAL.obDel(obKeyOf(X, si, +m[1], +m[2]), en.at); } };
+  async function run(id, si, b, q){
+    if (q.busy) return; q.busy = true;
+    try {
+      while (Object.keys(q.patch).length){
+        if (paused){ await waitWake(60000); continue; }          // the PIN was refused: wait until it is entered again
+        const patch = q.patch; q.patch = {};
+        inflight++; status();
+        let tries = 0, counted = false, pausedNoted = false, gone = false, X;
+        for (;;){
+          X = q.X;                                               // always the rig as it is open now
+          if (q.stale){
+            try {
+              await refreshEdits(X);
+              // the workbook was replaced meanwhile: these changes belong to the old version; they stay on the
+              // device and are offered for download when the new version opens (restoreOutbox)
+              if (!(await stillCurrent(X))){ gone = true; break; }
+              q.stale = false;
+            }
+            catch (e){ if (!counted){ failed++; counted = true; } status(); await waitWake(isOnline() ? 5000 : 15000); continue; }
+          }
+          dropStale(X, si, patch);                      // every batch: only cells that are still this device's latest word
+          if (!Object.keys(patch).length) break;
+          try { await writeDoc(X, id, si, b, patch); delSent(X, si, patch); break; }
+          catch (err){
+            const code = err && err.code;
+            if (code === 'not_granted'){ q.patch = Object.assign(patch, q.patch); pauseForPin(err); break; }   // keep every change; ask for the PIN
+            if (code === 'invalid_argument'){   // refused for another reason: keep the changes on the device (they are tried again after a reload)
+              lost++; toast(`The database refused ${Object.keys(patch).length === 1 ? 'a change' : 'some changes'} (${(err && err.message) || 'unknown reason'}). They are kept on this device; reload the page to try again.`, 9000); break;
+            }
+            if (!counted){ failed++; counted = true; }
+            status();
+            if (code === 'locked'){   // someone tried wrong PINs: keep the change and try again every minute
+              if (!pausedNoted){ pausedNoted = true; toast(`${err.message} Your changes are kept and will save automatically.`, 9000); }
+              await waitWake(60000); continue;
+            }
+            if (code === 'unavailable'){ q.stale = true; await waitWake(isOnline() ? 5000 : 15000); continue; }   // no connection: keep trying, never give up
+            tries++;
+            await waitWake(Math.min(15000, 1000 * Math.pow(2, tries)) + Math.random() * 500);
+            if (tries > 8){ lost++; toast('Could not save a change after several tries. It is kept on this device; reload the page to try again.', 8000); break; }
+          }
+        }
+        if (counted) failed--;
+        inflight--; status();
+        if (gone){ q.patch = {}; break; }
+      }
+    } finally {
+      q.busy = false;
+      if (!busy() && APP.cur && APP.cur.X === q.X){ status(); summarySoon(q.X); }
+    }
+  }
+  function pauseForPin(err){
+    if (paused) return;
+    paused = true;
+    if (AUTH.pin){ AUTH.pin = null; AUTH.save(); }
+    if (APP.canWrite) setEditing(false);
+    const X = APP.cur && APP.cur.X, n = X ? X.pending.size : 0;
+    toast(`${(err && err.message) || 'The edit PIN was not accepted.'} ${n ? `${N(n)} change${n === 1 ? ' is' : 's are'} kept on this device and will upload` : 'Changes will upload'} once you tap Edit and enter the current PIN.`, 9000);
+    status();
+  }
+  function resume(){ if (!paused) return; paused = false; wake(); status(); }
   /** true while any change is queued, being sent, or waiting to retry */
   function busy(){ return inflight > 0 || failed > 0 || [...queues.values()].some(q => q.busy || Object.keys(q.patch).length); }
-  return {write, status, busy};
+  /** Send everything now. True once the database has every change of this device (false: no connection, no PIN, timeout). */
+  async function flush(ms){
+    const t0 = Date.now(); wake();
+    while (busy()){
+      if (paused || (!isOnline() && Date.now() - t0 > 3000) || Date.now() - t0 > ms) return false;
+      await sleep(200);
+    }
+    const X = APP.cur && APP.cur.X;
+    if (!X || !X.pending.size) return true;
+    try { await refreshEdits(X); } catch (e){ return false; }
+    return !X.pending.size;
+  }
+  return {write, status, busy, flush, wake, resume, get paused(){ return paused; }, get lost(){ return lost; }};
 })();
+/** Is X still the rig's current workbook version in the database? */
+async function stillCurrent(X){
+  const d = await APP.db.collection('rigs').doc(X.rig).get();
+  if (d.metadata && d.metadata.fromCache) throw Object.assign(new Error('No connection'), {code: 'unavailable'});
+  return d.exists && d.data().ver === X.ver;
+}
+/** Read the rig's edits from the database now (throws 'unavailable' when only this device's copy could be read). */
+async function refreshEdits(X){
+  const snap = await APP.db.collection(`rigs/${X.rig}/edits`).where('ver', '==', X.ver).get();
+  if (snap.metadata && snap.metadata.fromCache) throw Object.assign(new Error('No connection'), {code: 'unavailable'});
+  onEdits(X, snap);
+  return snap;
+}
+/** Bring back changes this device made earlier but could not upload yet (engine room, reload, restart). */
+async function restoreOutbox(X){
+  const list = await LOCAL.obList(X.rig); if (!list.length) return 0;
+  const mine = list.filter(o => o.ver === X.ver), old = list.filter(o => o.ver !== X.ver), lost = [];
+  let n = 0;
+  for (const o of mine){
+    const key = o.si + ':' + (o.r * K + o.c), s = X.server ? X.server.get(key) : X.edits.get(key);
+    const e = {si: o.si, r: o.r, c: o.c, k: o.k, v: o.v === undefined ? null : o.v, f: o.f || null, by: o.by || null, at: o.at, base: o.base || 0};
+    const w = versus(e, s);
+    if (w !== 'keep'){ LOCAL.obDel(o.key, o.at); if (w === 'lost') lost.push({mine: e, theirs: s}); continue; }
+    X.edits.set(key, e); X.pending.set(key, e); n++;
+  }
+  if (n) for (const e of [...X.pending.values()]) SYNC.write(X, e, true);
+  if (lost.length) setTimeout(() => notifyLost(X, lost), 600);
+  if (old.length) setTimeout(() => whenFree(() => orphanDialog(X, old)), 900);
+  return n;
+}
+/** Tell the inspector which of this device's changes gave way to a later change by someone else. */
+function notifyLost(X, list){
+  if (!APP.cur || APP.cur.X !== X) return;
+  const txt = (sh, r, c, e) => !e ? 'blank' : e.k === 'r' ? 'the Excel value' : e.k === 'f' ? '=' + FX.pretty(e.f) : (fmtValue(e.v, styleOf(sh, r, c)) || 'blank');
+  const lines = list.slice(0, 8).map(({mine: m, theirs: t}) => {
+    const sh = X.sheets[m.si]; if (!sh) return '';
+    const insp = /equipment\s*breakdown/i.test(sh.name) ? inspModel(sh, buildBlocks(extent(sh)).blocks) : null, who = insp ? itemInfo(sh, insp, m.r).name : '';
+    return `<li><b>${esc(sh.name)} ${addr(m.r, m.c)}</b>${who ? ` (${esc(who)})` : ''}: this device's “${esc(txt(sh, m.r, m.c, m))}” gave way to “${esc(txt(sh, m.r, m.c, t))}” by ${esc(t && t.by || 'someone')}</li>`;
+  }).join('');
+  const n = list.length;
+  whenFree(() => dialog(`<h3>${n} change${n === 1 ? '' : 's'} not applied</h3>
+    <p>Someone else changed ${n === 1 ? 'this cell' : 'these cells'} after this device did, so the later change was kept:</p>
+    <ul class="facts-list">${lines}</ul>${n > 8 ? `<p class="note">…and ${n - 8} more.</p>` : ''}
+    <p class="note">Change ${n === 1 ? 'it' : 'them'} again if this device's value is the right one.</p>
+    <div class="dlg-actions"><span class="sp"></span><button class="btn primary" type="button" data-close>OK</button></div>`));
+}
+function orphanDialog(X, list){
+  if (!APP.cur || APP.cur.X !== X) return;
+  const n = list.length, they = n === 1 ? 'it' : 'they';
+  const dlg = dialog(`<h3>Changes from an earlier version</h3>
+    <p>This device has <b>${N(n)}</b> change${n === 1 ? '' : 's'} made for an earlier version of ${esc(X.rig)}’s workbook. That version was replaced (Update from Excel) before ${they} could upload, so ${they} cannot go into the new one by ${n === 1 ? 'itself' : 'themselves'}.</p>
+    <p class="note">Download ${n === 1 ? 'it' : 'them'} to enter again by hand, then remove ${n === 1 ? 'it' : 'them'} from this device.</p>
+    <div class="dlg-actions"><button class="btn" type="button" data-dl>${DL_ICON}Download (.xlsx)</button><span class="sp"></span><button class="btn ghost" type="button" data-close>Later</button><button class="btn" type="button" data-rm>Remove from this device</button></div>`);
+  dlg.el.querySelector('[data-dl]').addEventListener('click', () => runExport('the changes', async () => {
+    const cells = ['Sheet', 'Cell', 'Value', 'Changed by', 'Changed at', 'Workbook version'].map((h, j) => [1, j + 1, h, HEAD]);
+    list.slice().sort((a, b) => a.si - b.si || a.r - b.r || a.c - b.c).forEach((o, i) => {
+      const sh = X.sheets[o.si];
+      [sh ? sh.name : `Sheet ${o.si + 1}`, addr(o.r, o.c), o.k === 'f' ? '=' + o.f : o.k === 'r' ? '(back to the Excel value)' : o.v, o.by || '', o.at ? localSerial(o.at) : null, o.ver]
+        .forEach((v, j) => cells.push([i + 2, j + 1, v == null ? null : v, j === 4 ? {nf: 'dd-mmm-yyyy hh:mm'} : null]));
+    });
+    await saveFile(await XLSXWRITE.build([{name: 'Not uploaded', cells, colW: [22, 8, 28, 14, 18, 26], freeze: {x: 0, y: 1}}], `${X.rig} changes not uploaded`), `${X.rig}_Changes_not_uploaded.xlsx`);
+  }));
+  dlg.el.querySelector('[data-rm]').addEventListener('click', () => { list.forEach(o => LOCAL.obDel(o.key)); dlg.close(); toast('Removed from this device.', 3000); });
+}
 const TAB_ID = Math.random().toString(36).slice(2, 10);
 function pushEditsToCalc(X){
   X.calc.edits.forEach(m => m.clear());
@@ -3550,21 +4907,31 @@ async function flushSummary(){
   if (JSON.stringify(s) === JSON.stringify(old)) return;
   try { await APP.db.collection('rigs').doc(X.rig).update({summary: s, editedAt: Date.now()}); } catch (e){ /* the rig list refreshes on the next change */ }
 }
-/** Take back cells whose save was refused, and show the last saved state again. */
-function undoCells(X, si, patch){
-  let any = false;
-  for (const key of Object.keys(patch)){ const m = /^r(\d+)c(\d+)$/.exec(key); if (m && X.pending.delete(si + ':' + (+m[1] * K + +m[2]))) any = true; }
-  if (any && X.lastSnap) onEdits(X, X.lastSnap);
+/** A change of this device against the database's entry for the same cell:
+    'sent' (it arrived), 'keep' (still to upload) or 'lost' (someone else changed the cell later). */
+function versus(e, s){
+  if (!s) return 'keep';
+  if ((s.at || 0) === e.at && (s.by || null) === (e.by || null)) return 'sent';
+  if ((s.at || 0) === (e.base || 0)) return 'keep';              // nobody touched it since this change was made: it stands, whatever the clocks say
+  return (s.at || 0) < e.at ? 'keep' : 'lost';                    // both changed it: the later one wins
 }
 function onEdits(X, snap){
-  X.lastSnap = snap;
+  if (X.hold){ X.heldSnap = snap; return; }                      // "Today's Work Completed" is writing its files from a fixed state
   const next = new Map(), ids = new Set();
   for (const d of snap.docs){
     if (!d.exists) continue; const data = d.data(); ids.add(d.id);
     for (const [key, e] of Object.entries(data.cells || {})){ const m = /^r(\d+)c(\d+)$/.exec(key); if (!m) continue; next.set(data.i + ':' + (+m[1] * K + +m[2]), {si: data.i, r: +m[1], c: +m[2], k: e.k, v: e.v === undefined ? null : e.v, f: e.f || null, by: e.by || null, at: e.at || 0}); }
   }
   X.editDocs = ids;
-  for (const [key, e] of X.pending){ const s = next.get(key); if (!s || (s.at || 0) < e.at) next.set(key, e); else X.pending.delete(key); }
+  X.server = new Map(next);
+  const had = X.pending.size, lost = [];
+  for (const [key, e] of X.pending){
+    const s = next.get(key), w = versus(e, s);
+    if (w === 'keep') next.set(key, e);
+    else { X.pending.delete(key); if (w === 'lost'){ lost.push({mine: e, theirs: s}); LOCAL.obDel(obKeyOf(X, e.si, e.r, e.c), e.at); } }
+  }
+  if (X.pending.size !== had) SYNC.status();
+  if (lost.length) notifyLost(X, lost);
   const sig = m => JSON.stringify([...m.entries()].sort((a, b) => a[0] < b[0] ? -1 : 1).map(([k, e]) => [k, e.k, e.v, e.f, e.at]));
   if (sig(next) === sig(X.edits)) return;
   X.edits = next; pushEditsToCalc(X); recalcSoon(X);
@@ -3579,22 +4946,45 @@ async function openRig(rig){
   try {
     const snap = await APP.db.collection(`rigs/${rig}/parts`).where('ver', '==', doc.ver).get();
     if (APP.cur !== cur) return;
+    if (snap.metadata.fromCache && !snap.docs.length) throw Object.assign(new Error('No saved copy of this version'), {code: 'unavailable'});
     const model = STORE.fromDocs(doc, snap.docs.map(d => d.data()));
     const rt = XLSXREAD.toRuntime(model);
     if ((doc.engine || 0) < ENGINE){ try { FX.validate(rt, model.savedAt ? new Date(model.savedAt) : null); } catch (e){ console.warn(e); } }
-    const X = {rig, ver: doc.ver, doc, model, rt, styles: model.styles || [{}], calc: new FX.Calc(rt), edits: new Map(), pending: new Map(), editDocs: new Set(), editKeys: new Set(), tableState: new Map()};
+    const X = {rig, ver: doc.ver, doc, model, rt, styles: model.styles || [{}], calc: new FX.Calc(rt), edits: new Map(), server: new Map(), pending: new Map(), editDocs: new Set(), editKeys: new Set(), tableState: new Map(), mark: null, fromCopy: !!snap.metadata.fromCache};
     X.sheets = rt.sheets.map((s, i) => makeSheet(X, model.sheets[i], s, i));
+    // the changes saved so far (from this device's copy when offline), then this device's own changes not uploaded yet
+    try { onEdits(X, await APP.db.collection(`rigs/${rig}/edits`).where('ver', '==', doc.ver).get()); } catch (e){ /* they arrive with the live updates */ }
+    try { const m = await APP.db.collection(`rigs/${rig}/marks`).doc(doc.ver).get(); X.mark = m.exists ? m.data() : null; } catch (e){ /* not completed yet, or no copy */ }
+    if (APP.cur !== cur) return;
+    await restoreOutbox(X);
+    if (APP.cur !== cur) return;
+    pushEditsToCalc(X);
     X.calc.recalc();
     X.sheets.forEach(extent);
     cur.X = X;
     renderRigShell(doc, false);
     cur.unsub.push(APP.db.collection(`rigs/${rig}/edits`).where('ver', '==', doc.ver).onSnapshot(s => onEdits(X, s), err => { console.warn(err); toast('Live updates paused (' + (err && err.code || 'error') + '). Reload to reconnect.', 6000); }));
+    cur.unsub.push(APP.db.collection(`rigs/${rig}/marks`).where('ver', '==', doc.ver).onSnapshot(s => onMark(X, s), () => {}));
     showTab(cur.tab);
     SYNC.status();
+    prepareOffline(X);
   } catch (e){
     console.error(e);
-    if (APP.cur === cur) $('#main').innerHTML = `<div class="card"><h3>Could not open ${esc(rig)}</h3><p class="muted">${esc(e && e.message || e)}</p><p><a class="btn" href="#">Back to all rigs</a></p></div>`;
+    const offline = e && e.code === 'unavailable';
+    if (APP.cur === cur) $('#main').innerHTML = `<div class="card"><h3>Could not open ${esc(rig)}</h3><p class="muted">${offline ? `This device is offline and has no saved copy of ${esc(rig)} yet. Open it once while online; after that it also opens without a connection.` : esc(e && e.message || e)}</p><p><a class="btn" href="#">Back to all rigs</a></p></div>`;
   }
+}
+/** Keep what this rig needs on the device (the original workbook too), and say so in the header. */
+async function prepareOffline(X){
+  if (!LOCAL.available) return;
+  try { await LOCAL.pruneRig(X.rig, X.ver); if (X.doc.src) await srcBytes(X); } catch (e){ console.warn('offline copy', e); }
+  X.offlineReady = !X.fromCopy && LOCAL.available;
+  offlineBadge(X);
+}
+function offlineBadge(X){
+  const el = $('#offl'); if (!el || !APP.cur || APP.cur.X !== X) return;
+  const sw = 'serviceWorker' in navigator && !!navigator.serviceWorker.controller;
+  el.hidden = !(X.offlineReady && sw);
 }
 function closeRig(){ if (APP.cur){ APP.cur.unsub.forEach(u => { try { u(); } catch (e){} }); APP.cur = null; } SEL.si = -1; }
 function renderRigShell(doc, loading){
@@ -3609,13 +4999,15 @@ function renderRigShell(doc, loading){
       <div class="facts">${[['Report period', MT.period], ['PO inspection', MT.poDate], ['Prepared by', MT.prepared], ['Status', MT.status], ['Source', doc.file]].filter(f => f[1]).map(([k, v]) => `<span>${esc(k)} <b>${esc(v)}</b></span>`).join('')}</div>
     </div>
     <div class="actions">
+      <span class="offl" id="offl" hidden title="This device keeps a copy of this rig: it opens and takes changes without a connection, and uploads them when the connection is back.">${DONE_ICON}Available offline</span>
       <span class="sync" id="sync"></span>
       ${editButton()}
-      <button class="btn primary" id="btnExportAll" type="button"${loading ? ' disabled' : ''}>${DL_ICON}Export workbook (.xlsx)</button>
+      <button class="btn primary" id="btnExportAll" type="button" title="Download the workbook with every change written in"${loading ? ' disabled' : ''}>${DL_ICON}Export workbook (.xlsx)</button>
       ${APP.canAdmin || APP.dev ? `<button class="btn" id="btnUpdate" type="button" title="Load a newer version of this rig's Excel workbook">${UP_ICON}Update from Excel</button>` : ''}
     </div></div>`;
   bindEditButton();
-  $('#btnExportAll').addEventListener('click', () => exportSheets(X.sheets, `${X.rig}_AMP_Report.xlsx`, true));
+  $('#btnExportAll').addEventListener('click', exportWorkbook);
+  if (X) offlineBadge(X);
   const up = $('#btnUpdate'); if (up) up.addEventListener('click', () => pickWorkbook(doc.rig));
   const tabs = $('#tabs');
   if (loading){ tabs.innerHTML = ''; $('#main').innerHTML = `<div class="loading"><div class="spinner"></div>Loading ${esc(doc.rig)} and recalculating its formulas…</div>`; $('#fbar').hidden = true; SYNC.status(); return; }
@@ -3711,21 +5103,213 @@ function pickWorkbook(rig){
   inp.addEventListener('change', () => { if (inp.files && inp.files[0]) importFlow(inp.files[0], rig); });
   inp.click();
 }
-/** Read a workbook, check its formulas and work out its headline figures. */
+/** Read a workbook, check its formulas, tidy it (see normalizeModel) and work out its headline figures. */
 async function prepareImport(buf, fileName, onStep){
-  const model = await XLSXREAD.read(buf, fileName, onStep);
+  let model = await XLSXREAD.read(buf, fileName, onStep), moved = null;
   if (onStep) onStep('Checking every formula against the values Excel saved…');
   await sleep(30);
-  const rt = XLSXREAD.toRuntime(model);
-  const stats = FX.validate(rt, model.savedAt ? new Date(model.savedAt) : null);
+  const check = m => { const rt = XLSXREAD.toRuntime(m); return {rt, stats: FX.validate(rt, m.savedAt ? new Date(m.savedAt) : null)}; };   // against the file exactly as Excel saved it
+  let {rt, stats} = check(model);
+  const plan = ymdPlan(model);
+  if (plan && plan.risk) moved = {t: 'note', text: `“${normH(plan.header)}” ${plan.keepHeader ? 'stays where it is' : 'goes at the end of the table'}, not next to “${plan.info.after}”: ${plan.risk.sheet}!${plan.risk.cell} picks ${plan.sheet} columns by their position (${plan.risk.fn}), so moving columns would make it show the wrong ones`};
+  else if (plan){        // done in the file itself, so the page and every exported workbook have the column in its place
+    if (onStep) onStep(`Placing “${normH(plan.header)}” next to “${plan.info.after}”…`);
+    try {
+      const res = await XLSXPATCH.relayout(new Uint8Array(buf), plan);
+      const nbuf = res.bytes.buffer.slice(res.bytes.byteOffset, res.bytes.byteOffset + res.bytes.byteLength);
+      const m2 = await XLSXREAD.read(nbuf, fileName, onStep), c2 = check(m2);
+      // moving a column changes no value; a formula that now works out something else (a column number in
+      // INDEX/VLOOKUP/OFFSET, COLUMN()) means the move is not safe for this workbook
+      const lost = stats.live - c2.stats.live;
+      if (lost > 0) throw new Error(`${lost} formula${lost === 1 ? '' : 's'} would work out a different value`);
+      model = m2; buf = nbuf; rt = c2.rt; stats = c2.stats;
+      moved = Object.assign({t: 'move'}, plan.info, {header: normH(plan.header), warnings: res.warnings});
+    } catch (e){       // never block an import over this: the workbook keeps its layout
+      console.warn('relayout', e);
+      moved = {t: 'note', text: `“${normH(plan.header)}” was not moved next to “${plan.info.after}” (${e && e.message || e}); ${plan.keepHeader ? 'it stays where it is' : 'it is added at the end of the table instead'}`};
+    }
+  }
   XLSXREAD.applyStatic(model, rt);
+  const fixes = normalizeModel(model);
+  if (fixes.length) rt = XLSXREAD.toRuntime(model);
+  if (moved) fixes.unshift(moved);
   const X = {styles: model.styles, calc: new FX.Calc(rt), edits: new Map(), editKeys: new Set(), tableState: new Map(), doc: {}};
   X.sheets = rt.sheets.map((s, i) => makeSheet(X, model.sheets[i], s, i)); X.calc.recalc(); X.sheets.forEach(extent);
-  return {model, stats, summary: summaryOf(X)};
+  return {model, stats, summary: summaryOf(X), fixes, buf};
+}
+/** The first formula that uses Equipment Breakdown columns by their position: a reference spanning several columns
+    (the whole table, a multi-column range) inside a function that picks or lays out columns by number (CHOOSECOLS(…, 10),
+    VLOOKUP(…, 9, …), FILTER spilling the table's rows, OFFSET, COLUMN…). Moving a column would change what such a
+    formula shows, in Excel as well, so the column then stays where it is. lo = first column whose position changes. */
+const POSITION_FN = new Set(['CHOOSECOLS', 'INDEX', 'VLOOKUP', 'HLOOKUP', 'LOOKUP', 'OFFSET', 'TAKE', 'DROP', 'SORT', 'SORTBY', 'FILTER', 'UNIQUE', 'HSTACK', 'VSTACK', 'EXPAND', 'WRAPCOLS', 'WRAPROWS', 'TOCOL', 'TOROW', 'TRANSPOSE', 'COLUMN', 'COLUMNS', 'INDIRECT', 'ADDRESS', 'CELL', 'MMULT']);
+function positionUse(model, sheet, table, lo){
+  const S = sheet.toLowerCase(), T = table ? table.toLowerCase() : null;
+  const wideSpec = sp => { if (!sp) return true; const inner = sp.slice(1, -1).trim(); return !inner || inner[0] === '#' || /\]\s*:\s*\[/.test(inner); };
+  const wideCols = (a, b) => { const x = FX.colNum(String(a).replace(/[$\d]/g, '')), y = FX.colNum(String(b).replace(/[$\d]/g, '')); return Math.min(x, y) !== Math.max(x, y) && Math.max(x, y) >= lo; };
+  for (const sh of model.sheets){
+    const own = String(sh.name).toLowerCase();
+    for (const fe of sh.ftab || []){
+      const text = fe && fe.f; if (!text || !/[A-Za-z]/.test(text)) continue;
+      let toks; try { toks = FX.tokenize(text); } catch (e){ continue; }
+      const fns = toks.filter(t => t.type === 'func').map(t => String(t.v).replace(/^(_xlfn\.|_xlws\.)+/i, '').toUpperCase()).filter(n => POSITION_FN.has(n));
+      if (!fns.length) continue;
+      const fn = ['CHOOSECOLS', 'INDEX', 'VLOOKUP', 'HLOOKUP', 'OFFSET', 'COLUMN', 'COLUMNS'].find(n => fns.includes(n)) || fns[0];   // the one that names a column number, if any
+      let wide = false;
+      for (let i = 0; i < toks.length && !wide; i++){
+        const t = toks[i], prev = toks[i - 1], onSheet = prev && prev.type === 'sheet' ? String(prev.v).toLowerCase() === S : own === S;
+        if (t.type === 'table' && T && String(t.v).toLowerCase() === T && wideSpec(t.spec)) wide = true;
+        else if (t.type === 'cols' && onSheet){ const [a, b] = t.v.split(':'); wide = wideCols(a, b); }
+        else if (t.type === 'cell' && onSheet && toks[i + 1] && toks[i + 1].type === 'op' && toks[i + 1].v === ':' && toks[i + 2] && toks[i + 2].type === 'cell') wide = wideCols(t.v, toks[i + 2].v);
+        else if (t.type === 'str' && (String(t.v).toLowerCase().includes(S) || (T && String(t.v).toLowerCase().includes(T)))) wide = true;   // INDIRECT("'Sheet'!…")
+      }
+      if (wide) return {sheet: sh.name, cell: addr(fe.r, fe.c), fn};
+    }
+  }
+  return null;
+}
+/** Where the Equipment Breakdown's "Yard Maintenance Date" column has to go: right after "Yard PM Status". It is
+    moved there if it is elsewhere; otherwise an empty placeholder column ("Column1") is moved there and named, or
+    a new column is inserted. null when it is already in place or the sheet has no Yard PM Status column. */
+function ymdPlan(model){
+  const si = model.sheets.findIndex(s => /equipment\s*breakdown/i.test(s.name)); if (si < 0) return null;
+  const s = model.sheets[si], rows = new Map(s.rows.map(x => [x[0], x[1]]));
+  const textOf = cl => cl && cl[3] == null && typeof cl[1] === 'string' ? normH(cl[1]) : '';
+  let hr = 0, heads = [];
+  for (let r = 1; r <= 12 && !hr; r++){ const txt = (rows.get(r) || []).filter(cl => textOf(cl)); if (txt.length >= 3 && txt.some(cl => HDR.status.test(textOf(cl)))){ hr = r; heads = txt; } }
+  if (!hr) return null;
+  const head = re => heads.find(cl => re.test(textOf(cl))) || null;
+  const pm = head(HDR.pm), ymd = head(HDR.ymd); if (!pm) return null;
+  const used = c => s.rows.some(([rn, cells]) => rn > hr && cells.some(cl => cl[0] === c && (cl[3] != null || (cl[1] !== null && cl[1] !== ''))));
+  const spare = ymd ? null : heads.find(cl => /^column\s*\d+$/i.test(textOf(cl)) && !used(cl[0])) || null;
+  const from = ymd ? ymd[0] : spare ? spare[0] : null, to = from != null && from < pm[0] ? pm[0] : pm[0] + 1;
+  if (from === to) return null;
+  const spans = model.tables.filter(t => t.sheet === s.name).map(t => { const [a, b] = String(t.ref).split(':'), p = cellRef(a), q = cellRef(b || a); return {t, r1: p.r, c1: p.c, c2: q.c}; });
+  const holding = c => spans.find(x => c >= x.c1 && c <= x.c2) || null;
+  const home = spans.find(x => x.r1 === hr && pm[0] >= x.c1 && pm[0] <= x.c2) || null, table = home ? home.t : null;
+  if (from != null && holding(from) && holding(from) !== home) return null;    // the column belongs to another table: leave it
+  const risk = positionUse(model, s.name, table ? table.name : null, Math.min(from == null ? to : from, to));
+  const date = head(HDR.date), width = Math.max(16, date ? s.colW[date[0] - 1] || 0 : 0);
+  const shifted = heads.filter(cl => from == null || from > to ? cl[0] >= to && (from == null || cl[0] < from) : cl[0] > from && cl[0] <= to).map(textOf);
+  return {sheet: s.name, from, to, headerRow: hr, header: ymd ? String(ymd[1]) : YMD_HEADER, keepHeader: !!ymd, width, table: table ? table.name : null, risk,
+    info: {sheet: s.name, c: to, after: textOf(pm), was: ymd ? 'moved' : spare ? textOf(spare) : null, shifted, dir: from == null || from > to ? 'right' : 'left'}};
+}
+/** Small, safe repairs made while a workbook is imported. Each is recorded, shown before saving, and written
+    into exported workbooks too:
+    - AMP Category names typed with stray spaces ("Marine ") are trimmed, so every item counts in its system;
+    - the Equipment Breakdown gets a "Yard Maintenance Date" column (dated like Date of Inspection) if it has none. */
+function normalizeModel(model){
+  const fixes = [];
+  const rowMap = s => new Map(s.rows.map(x => [x[0], x[1]]));
+  const textOf = cl => cl && cl[3] == null && typeof cl[1] === 'string' ? normH(cl[1]) : '';
+  const hasData = cl => cl[3] != null || (cl[1] !== null && cl[1] !== '');
+  model.sheets.forEach((s, si) => {
+    const rows = rowMap(s);
+    for (let hr = 1; hr <= 12; hr++) for (const h of rows.get(hr) || []){
+      if (!HDR.cat.test(textOf(h))) continue;
+      for (const [rn, cells] of s.rows){
+        if (rn <= hr) continue;
+        const cl = cells.find(x => x[0] === h[0]);
+        if (!cl || cl[3] != null || typeof cl[1] !== 'string') continue;
+        const t = cl[1].trim();
+        if (t && t !== cl[1]){ fixes.push({t: 'trim', si, sheet: s.name, r: rn, c: h[0], from: cl[1], to: t}); cl[1] = t; }
+      }
+    }
+  });
+  const si = model.sheets.findIndex(s => /equipment\s*breakdown/i.test(s.name));
+  if (si < 0) return fixes;
+  const s = model.sheets[si], rows = rowMap(s);
+  let hr = 0, heads = [];
+  for (let r = 1; r <= 12 && !hr; r++){ const txt = (rows.get(r) || []).filter(cl => textOf(cl)); if (txt.length >= 3 && txt.some(cl => HDR.status.test(textOf(cl)))){ hr = r; heads = txt; } }
+  if (!hr) return fixes;
+  const dateHead = heads.find(cl => HDR.date.test(textOf(cl))), poHead = heads.find(cl => HDR.po.test(textOf(cl)));
+  if (!dateHead || !poHead) fixes.push({t: 'note', text: `rating on a tablet sets the condition${dateHead ? ' and the inspection date' : ''}${poHead ? ' and the PO inspection status' : ''} only: no ${[!dateHead ? '“Date of Inspection”' : '', !poHead ? '“PO inspection status”' : ''].filter(Boolean).join(' or ')} column was found in ${s.name}`});
+  let last = hr; for (const [rn, cells] of s.rows) if (rn > hr && cells.some(hasData)) last = Math.max(last, rn);
+  const rowCells = r => { let cells = rows.get(r); if (!cells){ cells = []; rows.set(r, cells); s.rows.push([r, cells]); } return cells; };
+  const isDateSt = st => st && FX.isDateFmt((model.styles[st] || {}).nf);
+  const nOrig = model.styles.length;                       // style numbers that exist in the original file
+  const colDate = (dateHead && (() => { for (const [rn, cells] of s.rows){ if (rn <= hr) continue; const cl = cells.find(x => x[0] === dateHead[0]); if (cl && isDateSt(cl[2])) return cl[2]; } return 0; })()) || 0;
+  const dateFmt = colDate ? model.styles[colDate].nf : 'dd-mmm-yyyy';
+  let baseDate = colDate;
+  if (!baseDate){ model.styles.push({nf: dateFmt}); baseDate = model.styles.length - 1; fixes.push({t: 'xf', nf: dateFmt, index: baseDate}); }   // also added to the exported file, same number
+  // Date of Inspection cells without a date format (Excel leaves it off cells it never filled) show dates once one is
+  // written: on the page through a copy of their own style with the date format, in exports the same way (dateCols)
+  if (dateHead){
+    const memo = new Map(), dated = st => { st = st || 0; if (!memo.has(st)){ model.styles.push(Object.assign({}, model.styles[st] || {}, {nf: dateFmt})); memo.set(st, model.styles.length - 1); } return memo.get(st); };
+    let n = 0;
+    for (let r = hr + 1; r <= last; r++){
+      const cells = rowCells(r), cl = cells.find(x => x[0] === dateHead[0]);
+      if (!cl){ cells.push([dateHead[0], null, dated(0)]); cells.sort((a, b) => a[0] - b[0]); n++; }
+      else if (!isDateSt(cl[2]) && cl[3] == null && (cl[1] == null || cl[1] === '' || typeof cl[1] === 'number')){ cl[2] = dated(cl[2]); n++; }
+    }
+    if (n) fixes.push({t: 'datefmt', si, sheet: s.name, c: dateHead[0], r1: hr + 1, r2: last, nf: dateFmt, n});
+  }
+  const ymdHead = heads.find(cl => HDR.ymd.test(textOf(cl)));
+  if (ymdHead){        // the column is there (in the workbook, or placed next to Yard PM Status): its empty cells show dates
+    const col = ymdHead[0], styles = [];
+    for (let r = hr + 1; r <= last; r++){
+      const cells = rowCells(r), ref = dateHead ? cells.find(cl => cl[0] === dateHead[0]) : null;
+      const st = ref && isDateSt(ref[2]) && ref[2] < nOrig ? ref[2] : baseDate;
+      const cl = cells.find(x => x[0] === col);
+      if (!cl){ cells.push([col, null, st]); cells.sort((a, b) => a[0] - b[0]); styles.push([r, st]); }
+      else if (!isDateSt(cl[2]) && cl[3] == null && (cl[1] == null || cl[1] === '' || typeof cl[1] === 'number')){ cl[2] = st; styles.push([r, st]); }
+    }
+    s.rows.sort((a, b) => a[0] - b[0]);
+    if (styles.length) fixes.push({t: 'colfmt', si, sheet: s.name, c: col, styles});
+    return fixes;
+  }
+  // the Yard Maintenance Date column
+  const used = c => s.rows.some(([rn, cells]) => rn > hr && cells.some(cl => cl[0] === c && hasData(cl)));
+  const spare = heads.find(cl => /^column\s*\d+$/i.test(textOf(cl)) && !used(cl[0]));     // an empty placeholder column ("Column1")
+  const col = spare ? spare[0] : Math.max(...heads.map(cl => cl[0])) + 1;
+  if (!spare && used(col)){ s.rows.sort((a, b) => a[0] - b[0]); return fixes; }           // never write over data
+  const spareText = spare ? textOf(spare) : null;
+  const prevHead = heads.filter(cl => cl[0] < col).pop() || heads[heads.length - 1];
+  const hs = (spare && spare[2]) || prevHead[2] || 0;
+  const hrow = rows.get(hr), hcell = hrow.find(cl => cl[0] === col);
+  if (hcell){ hcell[1] = YMD_HEADER; hcell[2] = hs; } else { hrow.push([col, YMD_HEADER, hs]); hrow.sort((a, b) => a[0] - b[0]); }
+  const styles = [];
+  for (let r = hr + 1; r <= last; r++){
+    const cells = rowCells(r), ref = dateHead ? cells.find(cl => cl[0] === dateHead[0]) : null;
+    const st = ref && isDateSt(ref[2]) && ref[2] < nOrig ? ref[2] : baseDate;          // only formats the original file has
+    const cl = cells.find(x => x[0] === col);
+    if (cl){ if (cl[1] == null || cl[1] === '') cl[2] = st; } else { cells.push([col, null, st]); cells.sort((a, b) => a[0] - b[0]); }
+    styles.push([r, st]);
+  }
+  s.rows.sort((a, b) => a[0] - b[0]);
+  while (s.colW.length < col) s.colW.push(8.43);
+  s.colW[col - 1] = Math.max(s.colW[col - 1] || 0, dateHead ? s.colW[dateHead[0] - 1] || 0 : 0, 16);
+  s.maxCol = Math.max(s.maxCol, col);
+  fixes.push({t: 'col', si, sheet: s.name, r: hr, c: col, header: YMD_HEADER, from: spareText, hs, styles, width: s.colW[col - 1]});
+  for (const t of model.tables) if (t.sheet === s.name){
+    const [a, b] = String(t.ref).split(':'), p = cellRef(a), q = cellRef(b || a);
+    if (p.r !== hr) continue;
+    if (col >= p.c && col <= q.c){                 // the placeholder is inside the table: rename that table column
+      const i = col - p.c; t.cols = (t.cols || []).slice(); const old = t.cols[i]; t.cols[i] = YMD_HEADER;
+      fixes.push({t: 'table', name: t.name, sheet: s.name, ref: t.ref, col: YMD_HEADER, rename: old || spareText});
+    } else if (q.c + 1 === col){                   // right next to the table: the table grows by one column
+      t.ref = `${a}:${FX.colLetter(col)}${q.r}`; t.cols = (t.cols || []).concat([YMD_HEADER]);
+      fixes.push({t: 'table', name: t.name, sheet: s.name, ref: t.ref, col: YMD_HEADER});
+    }
+  }
+  return fixes;
 }
 function buildDocs(rig, prep){
   const ver = STORE.newVersion();
-  return Object.assign({ver}, STORE.toDocs(rig, prep.model, ver, {importedAt: Date.now(), importedBy: APP.me.id || null, engine: ENGINE, summary: prep.summary}));
+  const src = prep.buf ? STORE.srcDocs(ver, new Uint8Array(prep.buf)) : [];
+  const info = {importedAt: Date.now(), importedBy: APP.me.id || null, engine: ENGINE, summary: prep.summary, fixes: prep.fixes || [], src: src.length ? {n: src.length, size: prep.buf.byteLength} : null};
+  return Object.assign({ver, src}, STORE.toDocs(rig, prep.model, ver, info));
+}
+function fixesText(fixes){
+  const trims = (fixes || []).filter(f => f.t === 'trim'), col = (fixes || []).find(f => f.t === 'col'), mv = (fixes || []).find(f => f.t === 'move'), out = [];
+  if (mv){
+    const list = (mv.shifted || []).map(h => `“${esc(h)}”`), and = list.length > 1 ? list.slice(0, -1).join(', ') + ' and ' + list[list.length - 1] : list[0];
+    out.push(`Tidied: “${esc(mv.header)}” is now column ${FX.colLetter(mv.c)} of ${esc(mv.sheet)}, right after “${esc(mv.after)}”${mv.was === 'moved' ? '' : mv.was ? ` (in place of the empty “${esc(mv.was)}”)` : ' (new column)'}${list.length ? `; ${and} move${list.length === 1 ? 's' : ''} one column to the ${mv.dir}` : ''}. Every formula, list and table that uses them follows`);
+    for (const w of mv.warnings || []) out.push(`Note: ${esc(w)}`);
+  }
+  if (trims.length) out.push(`Tidied: ${trims.length} AMP category name${trims.length === 1 ? ' had' : 's had'} extra spaces (such as “${esc(trims[0].from)}”) and ${trims.length === 1 ? 'was' : 'were'} trimmed, so every item counts in its system`);
+  if (col) out.push(`Tidied: column ${FX.colLetter(col.c)} “${esc(col.header)}” added to ${esc(col.sheet)}${col.from ? ` (in place of the empty “${esc(col.from)}”)` : ''}`);
+  for (const n of (fixes || []).filter(f => f.t === 'note')) out.push(`Note: ${esc(n.text)}`);
+  return out;
 }
 async function importFlow(file, rigFixed){
   const dlg = dialog(`<h3>Reading ${esc(file.name)}</h3><p class="muted" id="impStep">Opening the workbook…</p><div class="spinner"></div>`);
@@ -3744,7 +5328,8 @@ async function importFlow(file, rigFixed){
     return `<h3>${target ? `Replace ${esc(code)} with this workbook?` : 'Add this rig?'}</h3>
       <ul class="facts-list"><li><b>${esc(file.name)}</b>${model.savedAt ? `, saved ${esc(new Date(model.savedAt).toLocaleString('en-GB', {day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'}))}` : ''}</li>
       <li>${model.sheets.length} sheets · ${stats.formulas.toLocaleString('en-US')} formulas, ${pctLive}% recalculate live${stats.formulas - stats.live ? ` (${(stats.formulas - stats.live).toLocaleString('en-US')} keep the value Excel saved)` : ''}</li>
-      ${summary.total ? `<li>${N(summary.total)} equipment items · Yard PM ${pctS(summary.pmDone || 0, summary.total)} · ${N(summary.obsOpen)} open observations</li>` : ''}</ul>
+      ${summary.total ? `<li>${N(summary.total)} equipment items · Yard PM ${pctS(summary.pmDone || 0, summary.total)} · ${N(summary.obsOpen)} open observations</li>` : ''}
+      ${fixesText(prep.fixes).map(t => `<li>${t}</li>`).join('')}</ul>
       ${rigFixed ? '' : `<label class="fld">Rig code<input id="impRig" value="${esc(code)}" maxlength="20" autocomplete="off"></label>`}
       ${target ? `<p class="warn">Everyone viewing ${esc(code)} switches to the new data. ${edits === 0 ? 'No one has changed it online since the last import.' : `${edits != null ? `The ${edits} change${edits === 1 ? '' : 's'} made online since the last import` : 'Any changes made online since the last import'} will be cleared, so export the current version first if you still need them.`}</p>` : ''}
       <div class="dlg-actions">${target && APP.cur && APP.cur.rig === code ? `<button class="btn" data-exportcur>${DL_ICON}Export current version</button>` : ''}<span class="sp"></span><button class="btn ghost" data-close>Cancel</button><button class="btn primary" data-go>${target ? 'Replace data' : 'Add rig'}</button></div>`;
@@ -3752,7 +5337,7 @@ async function importFlow(file, rigFixed){
   dlg.body(renderConfirm());
   const rebind = () => {
     const rin = $('#impRig'); if (rin) rin.addEventListener('change', () => { dlg.body(renderConfirm()); rebind(); });
-    const ex = dlg.el.querySelector('[data-exportcur]'); if (ex) ex.addEventListener('click', () => exportSheets(APP.cur.X.sheets, `${APP.cur.rig}_AMP_Report_before_update.xlsx`, true));
+    const ex = dlg.el.querySelector('[data-exportcur]'); if (ex) ex.addEventListener('click', exportWorkbook);
     dlg.el.querySelector('[data-go]').addEventListener('click', async () => {
       const code = (rigFixed || ($('#impRig') ? $('#impRig').value : guess)).trim().toUpperCase();
       if (!/^[A-Z0-9][A-Z0-9_\-]{0,19}$/.test(code)){ toast('Use letters and numbers for the rig code, for example B370.', 4000); return; }
@@ -3763,17 +5348,19 @@ async function importFlow(file, rigFixed){
 }
 async function saveImport(rig, prep, dlg){
   const prev = APP.rigs.get(rig);
-  const {ver, rigDoc, parts} = buildDocs(rig, prep);
+  const {ver, rigDoc, parts, src} = buildDocs(rig, prep);
   APP.justImported = ver;
-  dlg.body(`<h3>Saving ${esc(rig)}</h3><p class="muted" id="impStep">Uploading 0 of ${parts.length + 1}…</p><div class="progress"><i id="impBar" style="width:0%"></i></div>`);
-  const step = (n, msg) => { const el = $('#impStep'); if (el) el.textContent = msg || `Uploading ${n} of ${parts.length + 1}…`; const b = $('#impBar'); if (b) b.style.width = (n / (parts.length + 1) * 100).toFixed(1) + '%'; };
+  const total = parts.length + src.length + 1;
+  dlg.body(`<h3>Saving ${esc(rig)}</h3><p class="muted" id="impStep">Uploading 0 of ${total}…</p><div class="progress"><i id="impBar" style="width:0%"></i></div>`);
+  const step = (n, msg) => { const el = $('#impStep'); if (el) el.textContent = msg || `Uploading ${n} of ${total}…`; const b = $('#impBar'); if (b) b.style.width = (n / total * 100).toFixed(1) + '%'; };
   try {
-    const col = APP.db.collection(`rigs/${rig}/parts`);
+    const col = APP.db.collection(`rigs/${rig}/parts`), scol = APP.db.collection(`rigs/${rig}/src`);
     for (let i = 0; i < parts.length; i++){ await withRetry(() => col.doc(parts[i].id).set(parts[i].data)); step(i + 1); }
+    for (let i = 0; i < src.length; i++){ await withRetry(() => scol.doc(src[i].id).set(src[i].data)); step(parts.length + i + 1); }   // the original file, for exports with formulas
     await withRetry(() => APP.db.collection('rigs').doc(rig).set(rigDoc));
-    step(parts.length + 1, 'Tidying up the previous version…');
+    step(total, 'Tidying up the previous version…');
     if (prev){
-      for (const c of ['parts', 'edits']){
+      for (const c of ['parts', 'edits', 'src', 'marks']){
         try { const old = await APP.db.collection(`rigs/${rig}/${c}`).where('ver', '!=', ver).get(); for (const d of old.docs) await withRetry(() => APP.db.collection(`rigs/${rig}/${c}`).doc(d.id).delete()); } catch (e){ console.warn('cleanup', e); }
       }
     }
@@ -3881,10 +5468,14 @@ function exportFleet(){
 /* ============================== small UI pieces ============================== */
 let toastT;
 function toast(msg, ms){ const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, ms || 3000); }
+const dlgQueue = [];
+/** Show a notice when no other dialog is open (one at a time, none replaced). */
+function whenFree(fn){ if ($('#dlg').hidden) fn(); else dlgQueue.push(fn); }
+function dialogClosed(){ const next = dlgQueue.shift(); if (next) setTimeout(() => whenFree(next), 150); }
 function dialog(html){
   const back = $('#dlg'); const box = $('#dlgBox');
   box.innerHTML = html; back.hidden = false;
-  const api = {el: box, body(h){ box.innerHTML = h; wire(); }, close(){ back.hidden = true; box.innerHTML = ''; }};
+  const api = {el: box, body(h){ box.innerHTML = h; wire(); }, close(){ back.hidden = true; box.innerHTML = ''; dialogClosed(); }};
   function wire(){ box.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', api.close)); }
   wire(); return api;
 }
@@ -3915,6 +5506,7 @@ function bindEditButton(){ const b = $('#btnEdit'); if (b) b.addEventListener('c
 function setEditing(on){
   APP.canWrite = APP.canAdmin = !!on;
   APP.me = {id: AUTH.name || null, name: AUTH.name || ''};
+  if (on){ SYNC.resume(); LOCAL.persist(); }        // upload anything that waited for the PIN; ask the browser to keep this device's copy
   refreshChrome();
 }
 /** Re-draw the header, tabs and current view after the editing state changed. */
@@ -3951,7 +5543,7 @@ function openEditDialog(){
   [name, pin].forEach(el => el.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); submit(); } }));
 }
 async function stopEditing(){
-  if (SYNC.busy()){ toast('Some changes are still being saved. Lock again once the status shows “all changes saved”.', 5000); return; }
+  if (SYNC.busy()){ toast(APP.db.isOnline() ? 'Some changes are still being saved. Lock again once the status shows “all changes saved”.' : 'Some changes are waiting for a connection to upload. Lock once the status shows “all changes saved”.', 5000); return; }
   if (summaryX) await flushSummary();       // the rig's headline figures are due: save them first
   AUTH.pin = null; AUTH.save(); setEditing(false); toast('Editing is locked on this device. Tap Edit to make changes again.', 3500);
 }
@@ -3964,19 +5556,6 @@ function verifySavedPin(){
     AUTH.pin = null; AUTH.save(); setEditing(false);
     toast('The saved edit PIN is no longer valid. Tap Edit to enter the current one.', 7000);
   }, () => { /* offline: keep the saved PIN; a refused save locks editing later */ });
-}
-/** A save was refused because of the PIN: stop editing and undo what did not reach the database. */
-let lockToastAt = 0;
-function lockEditing(X, msg){
-  const wasEditing = APP.canWrite || !!AUTH.pin;
-  if (AUTH.pin){ AUTH.pin = null; AUTH.save(); }
-  let undone = false;
-  if (X && X.pending && X.pending.size){ X.pending.clear(); undone = true; if (X.lastSnap) onEdits(X, X.lastSnap); }
-  if (wasEditing) setEditing(false);
-  if ((wasEditing || undone) && Date.now() - lockToastAt > 3000){
-    lockToastAt = Date.now();
-    toast(`${msg} Changes that were not saved have been undone. Tap Edit to enter the PIN again.`, 8000);
-  }
 }
 
 /* ============================== routing & boot ============================== */
@@ -4012,7 +5591,8 @@ async function boot(){
   else if (typeof SUPA !== 'undefined' && window.AMP_CONFIG && AMP_CONFIG.url && AMP_CONFIG.key){
     AUTH.load();
     APP.db = SUPA.connect(AMP_CONFIG, {pin: () => AUTH.pin, by: () => AUTH.name || null});
-    APP.db.onOnline(() => SYNC.status());
+    APP.db.onOnline(v => { SYNC.status(); if (v) SYNC.wake(); });
+    window.addEventListener('online', () => SYNC.wake());
     APP.user = {profiles: async ids => Object.fromEntries(ids.map(id => [id, {name: String(id)}]))};   // people are identified by the name they enter
     APP.me = {id: AUTH.name || null, name: AUTH.name || ''};
     if (AUTH.pin) verifySavedPin();
@@ -4021,11 +5601,27 @@ async function boot(){
     $('#main').innerHTML = '<div class="card"><h3>Live data is not available here</h3><p class="muted">This page is not connected to its database: the Supabase address and key (AMP_CONFIG) are missing from the page.</p></div>';
     return;
   }
-  APP.db.collection('rigs').onSnapshot(onRigs, err => { console.warn(err); $('#main').innerHTML = `<div class="card"><h3>Could not load the rigs</h3><p class="muted">${esc(err && err.message || err && err.code || err)}. Reload the page to try again.</p></div>`; });
+  APP.db.collection('rigs').onSnapshot(onRigs, err => {
+    console.warn(err);
+    $('#main').innerHTML = err && err.code === 'unavailable'
+      ? '<div class="card"><h3>No connection</h3><p class="muted">This device has no saved copy of the reports yet. Open this page once while online; after that it also opens without a connection.</p></div>'
+      : `<div class="card"><h3>Could not load the rigs</h3><p class="muted">${esc(err && err.message || err && err.code || err)}. Reload the page to try again.</p></div>`;
+  });
   window.addEventListener('hashchange', route);
   route();
 }
-window.AMP = {APP, FX, prepareImport, buildDocs, boot, ENGINE, importFlow, debug: {extent, buildBlocks, detectTables, tableModel, renderSheet, renderTableShell, paintTable, viewRows, reportModel}};
+/* "Confirm each change" comes back on whenever the page is opened again - also when an installed app
+   returns from the background after a while, or the browser restores the page from its memory */
+let hiddenAt = 0;
+const guardOn = () => { if (APP.guard) return; APP.guard = true; if (APP.cur && APP.cur.X) refreshViews(); };
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') hiddenAt = Date.now(); else if (hiddenAt && Date.now() - hiddenAt > 10 * 60000) guardOn(); });
+window.addEventListener('pageshow', e => { if (e.persisted) guardOn(); });
+/* the offline copy of the page itself (sw.js next to index.html); data is kept by LOCAL */
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol) && !window.__AMP_NO_SW){
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(e => console.warn('offline copy of the page', e)));
+  navigator.serviceWorker.addEventListener('controllerchange', () => { const X = APP.cur && APP.cur.X; if (X) offlineBadge(X); });
+}
+window.AMP = {APP, FX, prepareImport, buildDocs, boot, ENGINE, importFlow, SYNC, LOCAL, debug: {extent, buildBlocks, detectTables, tableModel, renderSheet, renderTableShell, paintTable, viewRows, reportModel, inspModel, changeRows, patchJob, buildWorkbook, normalizeModel, editsSnapshot, setCell}};
 if (!window.__AMP_NO_BOOT) boot();
 })();
 
